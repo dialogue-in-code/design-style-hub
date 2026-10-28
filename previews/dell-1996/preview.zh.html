@@ -379,7 +379,7 @@
  * This file is BRAND-AGNOSTIC. Every concrete value (color, radius, padding, font
  * size/weight/spacing) flows through CSS variables. Each brand's preview.html must
  * include a `:root { ... }` alias block that sets these variables from the brand's
- * DESIGN.md ex-* entries (see preview-design.md "Emit kit-mirror Examples block").
+ * STYLE.md ex-* entries (see preview-design.md "Emit kit-mirror Examples block").
  *
  * ROLE-VARIABLES (set in per-brand alias bridge — these are the points of customization):
  *   --ex-radius-card    — outer surface of pricing tier / modal / empty / toast / table
@@ -466,7 +466,7 @@
 .ex-emptystate { border: 1px solid var(--color-border); border-radius: var(--ex-radius-card, 20px); padding: 72px 24px; display: flex; flex-direction: column; align-items: center; text-align: center; background: var(--color-canvas); }
 .ex-toast { display: grid; grid-template-columns: 3px 1fr auto; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--ex-radius-card, 20px); box-shadow: var(--shadow-md); overflow: hidden; }
 
-/* Brand-shape overrides — align kit-mirror block with Dell 1996 DESIGN.md spec */
+/* Brand-shape overrides — align kit-mirror block with Dell 1996 STYLE.md spec */
 .ex-section { padding: 32px 32px; max-width: none; background: var(--canvas); border-top: 2px solid var(--frame-ink); }
 .ex-section .container { max-width: 100%; padding: 0; }
 .ex-h2 { font-family: var(--font-display); font-weight: 900; letter-spacing: 0; font-size: 36px; line-height: 1.0; text-transform: uppercase; color: var(--ink); }
@@ -502,7 +502,7 @@
 .ex-size-btn, .ex-size-btn.selected { border-radius: 0; font-family: var(--font-sans); font-weight: 700; text-transform: uppercase; }
 .ex-scrim { background: rgba(0, 0, 0, 0.55); }
 .ex-bullet { background: var(--frame-ink) !important; }
-/* Per-ex-* radius overrides — match DESIGN.md ex-* entry values per surface */
+/* Per-ex-* radius overrides — match STYLE.md ex-* entry values per surface */
 .ex-tier-card, .ex-tier-card.dark { border-radius: 0 !important; padding: 16px !important; }
 .ex-frame.tall                    { border-radius: 0 !important; }
 .ex-frame.short                   { border-radius: 0 !important; }
@@ -1264,6 +1264,6 @@
 
 </div><!-- /.page-frame -->
 
-<div class="footer-vmaintained">Maintained by <a href="https://github.com/VoltAgent/voltagent" target="_blank" rel="noopener noreferrer"><img src="https://github.com/VoltAgent.png?size=32" alt="VoltAgent" width="14" height="14" style="border-radius:3px;vertical-align:-2px;margin-right:3px;">VoltAgent</a> team</div>
+<div class="footer-vmaintained">Maintained by <a href="https://github.com/dialogue-in-code/design-style-hub" target="_blank" rel="noopener noreferrer"><img src="https://github.com/dialogue-in-code.png?size=32" alt="DesignStyleHub" width="14" height="14" style="border-radius:3px;vertical-align:-2px;margin-right:3px;">DesignStyleHub</a> team</div>
 
 </body></html>

@@ -1,16 +1,16 @@
 # DesignStyleHub · 设计图鉴
 
-> 84 个知名品牌网站的设计系统速查画廊 —— 把 `DESIGN.md` 丢给 AI 编程助手，即可生成风格一致的 UI。
+> 84 个知名品牌网站的设计系统速查画廊 —— 把 `STYLE.md` 丢给 AI 编程助手，即可生成风格一致的 UI。
 
-**English**: A curated gallery of 84 `DESIGN.md` design-system documents extracted from real-world websites (Claude, Apple, Stripe, Linear, Tesla, ...), with light/dark visual previews in both English and Chinese, and a self-contained, offline-friendly gallery page (`design-style-hub.html`) for browsing, searching, and copying any design system.
+**English**: A curated gallery of 84 `STYLE.md` design-system documents extracted from real-world websites (Claude, Apple, Stripe, Linear, Tesla, ...), with light/dark visual previews in both English and Chinese, and a self-contained, offline-friendly gallery page (`design-style-hub.html`) for browsing, searching, and copying any design system.
 
 ---
 
 ## 项目简介
 
-[DESIGN.md](https://stitch.withgoogle.com/docs/design-md/overview/) 是 Google Stitch 提出的一种约定：用一个纯 Markdown 文件描述项目的设计系统（色彩、字体、组件、布局、响应式规则等），供 AI 编程代理读取，从而生成视觉一致的界面。Markdown 正是 LLM 最擅长解析的格式——无需 Figma 导出、无需 JSON Schema、无需额外工具链。
+[STYLE.md](https://stitch.withgoogle.com/docs/design-md/overview/) 是 Google Stitch 提出的一种约定：用一个纯 Markdown 文件描述项目的设计系统（色彩、字体、组件、布局、响应式规则等），供 AI 编程代理读取，从而生成视觉一致的界面。Markdown 正是 LLM 最擅长解析的格式——无需 Figma 导出、无需 JSON Schema、无需额外工具链。
 
-- **本地可视化画廊**：`design-style-hub.html`，单文件、零依赖、离线可用，支持搜索 / 分类筛选 / 明暗主题 / iframe 内嵌预览 / 一键复制 DESIGN.md。
+- **本地可视化画廊**：`design-style-hub.html`，单文件、零依赖、离线可用，支持搜索 / 分类筛选 / 明暗主题 / iframe 内嵌预览 / 一键复制 STYLE.md。
 - **中英双语预览**：每个品牌提供 Light/Dark × 中文/英文 四种预览页面（`previews/<品牌>/`）。
 - **汉化工具链**：内置术语词典与校验脚本，可持续翻译新增品牌。
 
@@ -21,7 +21,7 @@ design-style-hub/
 ├── design-style-hub.html        # 生成的自包含画廊页（中文界面）
 ├── design-style/                # 仓库
 │   └── design-md/<品牌>/        # 84 个品牌，每个包含：
-│       ├── DESIGN.md            # 设计系统文档（YAML tokens + 设计规则）
+│       ├── STYLE.md            # 设计系统文档（YAML tokens + 设计规则）
 │       └── README.md            # 来源链接说明
 ├── previews/<品牌>/             # 每个品牌 4 份预览：
 │   ├── preview.html             # 英文 · Light
@@ -29,7 +29,7 @@ design-style-hub/
 │   ├── preview.zh.html          # 中文 · Light
 │   └── preview-dark.zh.html     # 中文 · Dark
 └── scripts/
-    ├── generate-design-gallery.mjs   # 解析 DESIGN.md，生成画廊页
+    ├── generate-design-gallery.mjs   # 解析 STYLE.md，生成画廊页
     ├── verify-zh.mjs                 # 校验中文预览页的翻译完整性
     ├── headings-zh.json              # 汉化术语词典（含 extra/2/3 增补）
     └── remaining-words.txt           # 待翻译词频统计
@@ -46,9 +46,9 @@ design-style-hub/
     └── __golden__/            # 字节级母本（make-golden.mjs 再生）
 ```
 
-## 每份 DESIGN.md 包含什么
+## 每份 STYLE.md 包含什么
 
-每份文档遵循 [Stitch DESIGN.md 规范](https://stitch.withgoogle.com/docs/design-md/specification/) 并做了扩展：
+每份文档遵循 [Stitch STYLE.md 规范](https://stitch.withgoogle.com/docs/design-md/specification/) 并做了扩展：
 
 | # | 章节 | 内容 |
 |---|------|------|
@@ -66,20 +66,20 @@ design-style-hub/
 
 ### 1. 直接使用（推荐）
 
-用浏览器打开 `design-style-hub.html` 即可——搜索品牌、筛选分类、切换明暗主题，在详情弹层中查看设计规范与实时预览，并一键复制整份 DESIGN.md。
+用浏览器打开 `design-style-hub.html` 即可——搜索品牌、筛选分类、切换明暗主题，在详情弹层中查看设计规范与实时预览，并一键复制整份 STYLE.md。
 
-### 2. 把 DESIGN.md 用在 AI 编程中
+### 2. 把 STYLE.md 用在 AI 编程中
 
 ```bash
 # 复制任一品牌的文档到项目根目录
-cp design-style/design-md/stripe/DESIGN.md ./DESIGN.md
+cp design-style/design-md/stripe/STYLE.md ./STYLE.md
 ```
 
 然后对任意 AI 编程代理（Claude Code、Cursor、GitHub Copilot 等）说：
 
-> 请参考项目根目录的 `DESIGN.md`，为我生成一个定价页，保持视觉风格一致。
+> 请参考项目根目录的 `STYLE.md`，为我生成一个定价页，保持视觉风格一致。
 
-`AGENTS.md` 告诉代理"如何构建项目"，`DESIGN.md` 告诉代理"项目应该长什么样"。
+`AGENTS.md` 告诉代理"如何构建项目"，`STYLE.md` 告诉代理"项目应该长什么样"。
 
 ### 3. 在画廊里新增品牌
 
@@ -87,7 +87,7 @@ cp design-style/design-md/stripe/DESIGN.md ./DESIGN.md
 
 - 从零填写（目录名、显示名、分类、描述、四个核心色值、字体、圆角、色板、间距、Do/Don't），或点开任一品牌详情里的「以此为模板新增」。
 - 草稿保存在本机浏览器里（`localStorage`），刷新后仍在；卡片带虚线描边与「草稿」徽标，详情里的预览页由表单自动生成。
-- 要让草稿变成正式资产：用详情或对话框里的「导出」拿到 `DESIGN.md` 与两份 `preview.html`，
+- 要让草稿变成正式资产：用详情或对话框里的「导出」拿到 `STYLE.md` 与两份 `preview.html`，
   放进 `design-style/design-md/<目录名>/` 与 `previews/<目录名>/`，再重跑下面的生成脚本。
 - 注意：以 `file://` 打开时 Safari 禁止页面写存储，此时草稿只在当前这次打开有效，请随手导出。
 
@@ -125,7 +125,7 @@ node scripts/verify-zh.mjs
 
 | 脚本 | 用途 |
 |------|------|
-| `generate-design-gallery.mjs` | 极简 YAML 解析器读取各品牌 `DESIGN.md` 的 front-matter（色彩、字体 tokens），结合顶层 README 的分类映射，输出单文件画廊页；`--refresh-previews` 可重新抓取预览资源 |
+| `generate-design-gallery.mjs` | 极简 YAML 解析器读取各品牌 `STYLE.md` 的 front-matter（色彩、字体 tokens），结合顶层 README 的分类映射，输出单文件画廊页；`--refresh-previews` 可重新抓取预览资源 |
 | `verify-zh.mjs` | 批量检查 `previews/*/preview*.zh.html`：导航残留、`<h1>` 是否含"设计分析"、hero 描述是否已完成中文化，输出 JSON 报告 |
 | `headings-zh*.json` | 英文→中文短语词典，供翻译流程复用，保证 84 个品牌术语一致（如 Feature Card → 功能卡片、Touch Targets → 触控目标） |
 | `remaining-words.txt` | 翻译收尾用的唯一词频清单（1385 词） |

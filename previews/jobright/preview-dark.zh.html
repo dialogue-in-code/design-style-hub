@@ -68,7 +68,7 @@
  * This file is BRAND-AGNOSTIC. Every concrete value (color, radius, padding, font
  * size/weight/spacing) flows through CSS variables. Each brand's preview.html must
  * include a `:root { ... }` alias block that sets these variables from the brand's
- * DESIGN.md ex-* entries (see preview-design.md "Emit kit-mirror Examples block").
+ * STYLE.md ex-* entries (see preview-design.md "Emit kit-mirror Examples block").
  *
  * ROLE-VARIABLES (set in per-brand alias bridge — these are the points of customization):
  *   --ex-radius-card    — outer surface of pricing tier / modal / empty / toast / table
@@ -172,7 +172,7 @@
     --ex-letter-display:-1px; --ex-letter-button:0; --ex-letter-eyebrow:0;
   }
   
-  /* Brand-shape overrides — align kit-mirror block with the brand DESIGN.md spec */
+  /* Brand-shape overrides — align kit-mirror block with the brand STYLE.md spec */
   .ex-primary,.ex-outlined,.ex-tier-cta,.ex-pager,.ex-pager.active,.ex-size-btn,.ex-size-btn.selected{
     border-radius:28px; font-family:'Inter','Inter','Helvetica Neue',Arial,sans-serif; font-weight:600; letter-spacing:0; line-height:1;
     display:inline-flex; align-items:center; justify-content:center; }
@@ -189,7 +189,7 @@
   .ex-tier-card.dark .ex-features li { border-bottom-color:rgba(0,0,0,0.12) !important; }
   .ex-tier-card.dark .ex-tier-cta.invert { background:#0a0d0b !important; color:#ffffff !important; border-color:#0a0d0b !important; }
 
-/* Brand-shape overrides — align kit-mirror block with Jobright DESIGN.md spec */
+/* Brand-shape overrides — align kit-mirror block with Jobright STYLE.md spec */
 /* Jobright's PRIMARY CTA is a black pill (ink), NOT the brand 'primary' mint — the scaffold's
    .btn-primary defaults to the accent colour, so re-point the hero primary to ink + contrasting label.
    (green accent pill = button-green, handled inline in the Button Variants demos.) */
@@ -251,4 +251,4 @@
   </div>
   <p style="color:#8a938f;margin-top:24px;font-size:14px;"><strong style="color:#ffffff;">Touch targets:</strong> button-primary clears 44×44 WCAG-AAA at 0/20px padding. <strong style="color:#ffffff;">Collapsing:</strong> nav → hamburger below the tablet breakpoint (yellow CTA stays); multi-column pricing/feature grids reflow to a single stacked column; section padding compresses from section (128px) toward giant (64px); display type scales down while keeping weight 500.</p>
 </section>
-<footer class="footer">Maintained by <a href="https://github.com/VoltAgent/voltagent" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img src="https://github.com/VoltAgent.png?size=32" alt="VoltAgent" width="14" height="14" style="border-radius:3px;vertical-align:-2px;margin-right:3px;">VoltAgent</a> team</footer></body></html>
+<footer class="footer">Maintained by <a href="https://github.com/dialogue-in-code/design-style-hub" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img src="https://github.com/dialogue-in-code.png?size=32" alt="DesignStyleHub" width="14" height="14" style="border-radius:3px;vertical-align:-2px;margin-right:3px;">DesignStyleHub</a> team</footer></body></html>

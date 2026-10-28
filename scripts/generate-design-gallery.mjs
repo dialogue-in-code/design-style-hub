@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * generate-design-gallery.mjs
- * 解析本地 design-style 目录（awesome-design-md 仓库）中全部品牌的 DESIGN.md 文档，
+ * 解析本地 design-style 目录中全部品牌的 STYLE.md 文档，
  * 生成自包含的可视化画廊页面 ../design-style-hub.html（相对本脚本位置）
  */
 import fs from 'node:fs';
@@ -219,7 +219,7 @@ function extractFromMarkdown(md) {
   return { palette, primary, canvas, ink, description };
 }
 
-/* ---------------- 解析单个 DESIGN.md ---------------- */
+/* ---------------- 解析单个 STYLE.md ---------------- */
 function parseBrand(dirName, filePath) {
   const md = fs.readFileSync(filePath, 'utf8');
   const fmMatch = md.match(/^---\r?\n([\s\S]*?)\r?\n---/);
@@ -528,28 +528,28 @@ const HERO_ZH = {
   'aljazeera': '平面纸媒上的硬新闻编辑系统：致密的 Roboto 标题堆叠、以细线规则取代阴影，摄影承担视觉工作。一种饱和橙色签署报头标识块与每个章节眉标条；专属的直播红用徽章、横带与时间线圆点标记突发报道；操作是紧凑的黑色胶囊。企业网络页面把同一身份带到近黑画布上，配皇家靛蓝面板、金色细线、琥珀链接以及青色与绯红章节栏。',
   'bmw-m': '以近黑画布为锚的运动工程界面，白色 BMW Type Next Latin 展示标题使用自信的全大写。品牌电压来自通栏汽车摄影。',
   'shopify': '对 Shopify 设计语言的演绎——电影感的电商平台，运行两条平行设计轨道：近黑画布配细字重 Neue Haas Grotesk 展示字体，以及奶油薄荷交易表面配反极性的同款胶囊按钮词汇。',
-  'cohere': '从 Cohere 的 DESIGN.md 生成的静态目录：纪念碑式字体、素净画布、深色产品横带、圆角媒体卡片、珊瑚色编辑徽章与企业级 AI 产品模拟图。',
+  'cohere': '从 Cohere 的 STYLE.md 生成的静态目录：纪念碑式字体、素净画布、深色产品横带、圆角媒体卡片、珊瑚色编辑徽章与企业级 AI 产品模拟图。',
   'dell-1996': '对 Dell.com 1996 年设计语言的演绎——目录时代的企业网页设计：字面意义的黑色页面边框、鲜艳的扁平色带卡片、厚重的 Arial Black 展示标题、Times Roman 正文，以及整套前 Photoshop 时代手工剪贴 GIF 贴纸的视觉词汇。',
   'kraken': '每一种颜色、字体与组件——以加密交易所般的精度可视化呈现。',
-  'lamborghini': '从 DESIGN.md 生成的视觉目录——黑暗、金色与毫不妥协的棱角。',
-  'lovable': '从 DESIGN.md 生成的设计令牌目录。每一种颜色、字体、组件与间距值——全部可视化。',
-  'mastercard': '从 DESIGN.md 生成的完整令牌级目录。下方每种颜色、字阶、按钮、卡片与圆角，均以文档中提供给下游代理的同一套数值渲染。',
+  'lamborghini': '从 STYLE.md 生成的视觉目录——黑暗、金色与毫不妥协的棱角。',
+  'lovable': '从 STYLE.md 生成的设计令牌目录。每一种颜色、字体、组件与间距值——全部可视化。',
+  'mastercard': '从 STYLE.md 生成的完整令牌级目录。下方每种颜色、字阶、按钮、卡片与圆角，均以文档中提供给下游代理的同一套数值渲染。',
   'meta': 'Meta 的电商表面（首页、Quest 配置器、Ray-Ban 产品详情、处方页）读起来像自信的硬件商品陈列。品牌声音以摄影为先：通栏产品影像、紧凑的排版层级，以及可辨识的双 CTA 模式——营销区黑色胶囊主按钮，立即购买流程中钴蓝胶囊主按钮。',
   'minimax': 'MiniMax 将自己呈现为具有精致双重身份的 AI 基础设施品牌：极简单色营销画布，搭配鲜艳渐变产品卡片（珊瑚色 M2.7、品红 Music 2.6、蓝色海螺 Hailuo）。全站 DM Sans 字体，超大 80px 主视觉展示配 -2px 字距。',
   'mintlify': 'Mintlify 以双模式美学呈现文档基础设施——氛围感天空渐变营销主视觉，搭配致密的开发者级文档表面。Inter 用于 UI 文案，Geist Mono 用于代码，标志性的薄荷绿用于强调 CTA。',
   'miro': 'Miro 以自信而略带俏皮的品牌声音定位自己为 AI 驱动的可视化工作区——锚定在极简白色画布上，标志性的金丝雀黄字标、黑色胶囊主 CTA，以及呼应真实白板便利贴调色板的柔和功能卡片。',
   'mistral.ai': '氛围感山峦日落渐变，配编辑风近衬线主视觉展示。',
   'mongodb': 'MongoDB 带有强烈双模式视觉身份——深青色主视觉横幅配明亮的 MongoDB 绿 CTA，以及纯白文档表面。标志性的绿色胶囊在产品、定价、学习与 AI 用例表面上辨识度极高。',
-  'spotify': '从 DESIGN.md 生成的设计令牌目录。每一种颜色、字体与组件——在黑暗中可视化。',
-  'starbucks': '从 Starbucks.com 提取的令牌、组件与布局原则视觉目录——由 DESIGN.md 生成。',
+  'spotify': '从 STYLE.md 生成的设计令牌目录。每一种颜色、字体与组件——在黑暗中可视化。',
+  'starbucks': '从 Starbucks.com 提取的令牌、组件与布局原则视觉目录——由 STYLE.md 生成。',
   'tesla': '摄影优先，界面隐形。',
-  'theverge': '警示带编辑风。巨大的 Manuka 标题、酸性薄荷 + 紫外线强调色，以及像新闻的 git log 的 StoryStream 时间线。由 DESIGN.md 生成。',
+  'theverge': '警示带编辑风。巨大的 Manuka 标题、酸性薄荷 + 紫外线强调色，以及像新闻的 git log 的 StoryStream 时间线。由 STYLE.md 生成。',
 };
 
 /** 将 preview HTML 中的标题类内容（title/h1-h3/eyebrow）替换为中文，并移除导航与 hero 演示按钮 */
 function translatePreviewHtml(html, dir) {
   let out = html;
-  // 1) 整体移除顶部导航条（getdesign.md / awesome-design-md / 站点导航链接那一行）
+  // 1) 整体移除顶部导航条（站点导航链接那一行）
   out = out.replace(/<nav[^>]*class="[^"]*\bnav\b[^"]*"[^>]*>[\s\S]*?<\/nav>/gi, '');
   // 2) 移除 hero 区的演示按钮行（Sign up / Subscribe / Open account / Contact sales 等）
   out = out.replace(/<div[^>]*class="[^"]*hero-actions[^"]*"[^>]*>[\s\S]*?<\/div>/gi, '');
@@ -647,6 +647,7 @@ async function ensurePreviews(dirs) {
     const slot = r.variant === 'preview' ? 'light' : 'dark';
     const o = map.get(r.dir) || {};
     o[slot] = relZh;
+    o[slot + 'En'] = 'previews/' + encodeURIComponent(r.dir) + '/' + r.variant + '.html';
     map.set(r.dir, o);
   }
   console.log(`   预览资源: 下载 ${downloaded} · 缓存 ${cached} · 站点缺失 ${missing} · 失败 ${failed} · 中文标题版 ${zhOk}`);
@@ -662,12 +663,12 @@ async function main() {
   const catMap = parseCategories();
   const dirs = fs.readdirSync(DESIGN_DIR).filter(d => {
     const p = path.join(DESIGN_DIR, d);
-    return fs.statSync(p).isDirectory() && fs.existsSync(path.join(p, 'DESIGN.md'));
+    return fs.statSync(p).isDirectory() && fs.existsSync(path.join(p, 'STYLE.md'));
   });
   const brands = dirs.map(d => {
     let b;
     try {
-      b = parseBrand(d, path.join(DESIGN_DIR, d, 'DESIGN.md'));
+      b = parseBrand(d, path.join(DESIGN_DIR, d, 'STYLE.md'));
     } catch (e) {
       console.warn('降级处理（解析失败）: ' + d + ' -> ' + e.message);
       b = {
@@ -676,7 +677,7 @@ async function main() {
         primary: '#6366f1', canvas: '#101014', ink: '#f0f0f5', onPrimary: '#ffffff',
         palette: ['#6366f1', '#8b5cf6', '#22c55e'], fontFamily: 'system-ui, sans-serif',
         rounded: {}, spacing: {}, colorCount: 0, typoCount: 0, componentCount: 0,
-        dos: [], donts: [], raw: fs.readFileSync(path.join(DESIGN_DIR, d, 'DESIGN.md'), 'utf8'),
+        dos: [], donts: [], raw: fs.readFileSync(path.join(DESIGN_DIR, d, 'STYLE.md'), 'utf8'),
       };
     }
     const info = catMap.get(d.toLowerCase()) || catMap.get(d.replace(/[^a-z0-9]/gi, '').toLowerCase());
@@ -705,6 +706,8 @@ async function main() {
     const pv = previewMap.get(b.dir) || {};
     b.pvLight = pv.light || '';
     b.pvDark = pv.dark || '';
+    b.pvLightEn = pv.lightEn || '';
+    b.pvDarkEn = pv.darkEn || '';
   }
 
   const dataJson = JSON.stringify(brands).replace(/<\/script/gi, '<\\/script');
@@ -871,7 +874,7 @@ function buildHTML(brands, catCount, dataJson) {
     font-size: 11.5px; line-height: 1.6; white-space: pre-wrap; word-break: break-word;
     max-height: 420px; overflow-y: auto; color: var(--text-2);
   }
-  .pv-tabs { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .pv-tabs { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
   .pv-tab {
     padding: 5px 16px; border-radius: 999px; border: 1px solid rgba(139,147,167,.3);
     background: transparent; color: var(--text-2); cursor: pointer; font-size: 12px; font-weight: 600;
@@ -961,7 +964,7 @@ function buildHTML(brands, catCount, dataJson) {
 <body>
 <header class="toolbar">
   <div class="tb-row">
-    <div class="logo"><span class="logo-mark">DS</span>DesignStyleHub<small>DESIGN.md 设计图鉴</small></div>
+    <div class="logo"><span class="logo-mark">DS</span>DesignStyleHub<small>STYLE.md 设计图鉴</small></div>
     <div class="search-wrap">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
       <input id="search" type="text" placeholder="搜索品牌（如 stripe / linear / nvidia）…" autocomplete="off">
@@ -977,7 +980,7 @@ function buildHTML(brands, catCount, dataJson) {
   <div class="storage-banner" id="storageBanner" style="display:none">当前浏览器禁止本地文件页写入存储：草稿只存在于这一次打开的页面里，刷新即丢。请随时用「导出」备份。</div>
 </header>
 <main class="grid" id="grid"></main>
-<footer>数据来源：<a href="https://github.com/VoltAgent/awesome-design-md" target="_blank" rel="noopener">VoltAgent/awesome-design-md</a> · 本地仓库 design-style · 点击卡片查看设计令牌并复制 DESIGN.md</footer>
+<footer>数据来源：<a href="https://github.com/dialogue-in-code/design-style-hub" target="_blank" rel="noopener">DesignStyleHub</a> · 本地仓库 design-style · 点击卡片查看设计令牌并复制 STYLE.md</footer>
 
 <div class="modal-mask" id="modalMask">
   <div class="modal-wrap">
@@ -1008,7 +1011,7 @@ function buildHTML(brands, catCount, dataJson) {
           <label class="fld"><span>分类</span>
             <select id="ab-cat"><option value="">（空则归入「其他」）</option></select>
             <input id="ab-catnew" type="text" placeholder="新分类名" style="display:none" autocomplete="off"></label>
-          <label class="fld fld-wide"><span>描述（卡片与 DESIGN.md 都用它）</span>
+          <label class="fld fld-wide"><span>描述（卡片与 STYLE.md 都用它）</span>
             <textarea id="ab-description" rows="3" placeholder="一句话说清这个品牌的视觉气质"></textarea><p class="fld-err" id="err-description"></p></label>
           <label class="fld"><span>主色 primary</span>
             <input id="ab-primary" type="text" placeholder="#6366f1" autocomplete="off"><p class="fld-err" id="err-primary"></p></label>
@@ -1040,8 +1043,8 @@ function buildHTML(brands, catCount, dataJson) {
             <textarea id="ab-dosText" rows="3"></textarea><p class="fld-err" id="err-dosText"></p></label>
           <label class="fld fld-wide"><span>Don't（每行一条，第 7 条起被截断）</span>
             <textarea id="ab-dontsText" rows="3"></textarea><p class="fld-err" id="err-dontsText"></p></label>
-          <label class="fld fld-wide"><span>DESIGN.md 原文覆盖（可选；非空时导出与复制都用它，页面不会反向解析它）</span>
-            <textarea id="ab-raw" rows="5" placeholder="留空则由表单自动生成 DESIGN.md"></textarea></label>
+          <label class="fld fld-wide"><span>STYLE.md 原文覆盖（可选；非空时导出与复制都用它，页面不会反向解析它）</span>
+            <textarea id="ab-raw" rows="5" placeholder="留空则由表单自动生成 STYLE.md"></textarea></label>
         </div>
         <div class="dlg-actions">
           <button class="btn" id="ab-save">保存草稿</button>
@@ -1248,7 +1251,7 @@ function validateLocalBrand(form, builtDirs, draftDirs) {
     if (!HEX6_RE.test(extra[e].v)) errors.push({ field: 'colorsText', msg: '附加色板第 ' + (e + 1) + ' 行不是 6 位十六进制：' + extra[e].k });
   }
   if (!String(form.label || '').trim()) errors.push({ field: 'label', msg: '显示名必填' });
-  if (!String(form.description || '').trim()) errors.push({ field: 'description', msg: '描述必填（卡片与 DESIGN.md 都依赖它）' });
+  if (!String(form.description || '').trim()) errors.push({ field: 'description', msg: '描述必填（卡片与 STYLE.md 都依赖它）' });
   else if (String(form.description).length > 600) warns.push({ field: 'description', msg: '超过 600 字，导出与构建都会截断（与 parseBrand 一致）' });
   var pal = pickPaletteLocal(tokensFrom(form).colors, form.primary);
   if (Object.keys(tokensFrom(form).colors).length > 8) warns.push({ field: 'colorsText', msg: '卡片色板最多显示 8 个，超出部分被 pickPalette 过滤' });
@@ -1537,7 +1540,7 @@ function showToast(msg, isErr) {
 function exportTargets(form) {
   var raw = form.rawOverride && form.rawOverride.trim() ? form.rawOverride : serializeDesignMd(form);
   return [
-    { name: 'design-md__' + form.dir + '__DESIGN.md', target: 'design-style/design-md/' + form.dir + '/DESIGN.md', text: raw },
+    { name: 'design-md__' + form.dir + '__STYLE.md', target: 'design-style/design-md/' + form.dir + '/STYLE.md', text: raw },
     { name: 'previews__' + form.dir + '__preview.html', target: 'previews/' + form.dir + '/preview.html', text: buildLocalPreviewHtml(form, 'light') },
     { name: 'previews__' + form.dir + '__preview-dark.html', target: 'previews/' + form.dir + '/preview-dark.html', text: buildLocalPreviewHtml(form, 'dark') }
   ];
@@ -1683,7 +1686,7 @@ function openModal(dir) {
     ? '<button class="btn ghost" id="editBtn">✎ 编辑草稿</button>' +
       '<button class="btn ghost" id="exportBtn">⤓ 导出文件</button>' +
       '<button class="btn ghost danger" id="delBtn">删除</button>'
-    : '<a class="btn ghost" href="design-style/design-md/' + encodeURIComponent(b.dir) + '/DESIGN.md" target="_blank">打开源文件</a>' +
+    : '<a class="btn ghost" href="design-style/design-md/' + encodeURIComponent(b.dir) + '/STYLE.md" target="_blank">打开源文件</a>' +
       '<button class="btn ghost" id="cloneBtn">以此为模板新增</button>';
   var headHtml =
     '<div class="md-head">' +
@@ -1691,29 +1694,28 @@ function openModal(dir) {
         return '<span class="bc-sw" style="background:' + c + '" title="' + c + '"></span>';
       }).join('') + '</div>' +
       '<div class="md-actions">' +
-        '<button class="btn" id="copyBtn">⧉ 复制 DESIGN.md</button>' +
+        '<button class="btn" id="copyBtn">⧉ 复制 STYLE.md</button>' +
         localActions +
       '</div>' +
     '</div>';
-  var pv = b.pvLight || b.pvDark;
   var pvHtml;
-  if (pv) {
+  if (b.pvLight || b.pvLightEn) {
     pvHtml =
       '<div class="dd-title">Preview · 设计预览</div>' +
       '<div class="pv-tabs">' +
-        (b.pvLight ? '<button class="pv-tab active" data-mode="light" data-src="' + esc(b.pvLight) + '">Light</button>' : '') +
-        (b.pvDark ? '<button class="pv-tab' + (b.pvLight ? '' : ' active') + '" data-mode="dark" data-src="' + esc(b.pvDark) + '">Dark</button>' : '') +
+        '<button class="pv-tab active" data-lang="zh">中文</button>' +
+        (b.pvLightEn ? '<button class="pv-tab" data-lang="en">EN</button>' : '') +
       '</div>' +
-      '<iframe id="pvFrame" class="pv-frame" src="' + esc(pv) + '" title="' + esc(b.label) + ' design preview"></iframe>';
+      '<iframe id="pvFrame" class="pv-frame" data-zh-light="' + esc(b.pvLight || '') + '"' +
+        ' data-zh-dark="' + esc(b.pvDark || '') + '"' +
+        ' data-en-light="' + esc(b.pvLightEn || '') + '"' +
+        ' data-en-dark="' + esc(b.pvDarkEn || '') + '"' +
+        ' data-lang="zh" title="' + esc(b.label) + ' design preview"></iframe>';
   } else if (isLocal && curLocalForm && supportsSrcdoc()) {
     curLocalPv = { light: buildLocalPreviewHtml(curLocalForm, 'light'), dark: buildLocalPreviewHtml(curLocalForm, 'dark') };
     pvHtml =
       '<div class="dd-title">Preview · 设计预览（草稿自动生成的同构预览）</div>' +
-      '<div class="pv-tabs">' +
-        '<button class="pv-tab active" data-mode="light">Light</button>' +
-        '<button class="pv-tab" data-mode="dark">Dark</button>' +
-      '</div>' +
-      '<iframe id="pvFrame" class="pv-frame" sandbox="" title="' + esc(b.label) + ' draft preview"></iframe>';
+      '<iframe id="pvFrame" class="pv-frame" data-local="1" sandbox="" title="' + esc(b.label) + ' draft preview"></iframe>';
   } else {
     pvHtml =
       '<div class="dd-title">Preview · 设计预览</div>' +
@@ -1722,7 +1724,7 @@ function openModal(dir) {
   document.getElementById('mdBody').innerHTML =
     headHtml +
     pvHtml;
-  if (curLocalPv) document.getElementById('pvFrame').srcdoc = curLocalPv.light;
+  applyPreviewSrc();
   mask.classList.add('open');
   document.body.style.overflow = 'hidden';
   document.getElementById('copyBtn').addEventListener('click', function () { copyText(b.raw); });
@@ -1738,15 +1740,27 @@ function openModal(dir) {
 function supportsSrcdoc() { return 'srcdoc' in document.createElement('iframe'); }
 function closeModal() { mask.classList.remove('open'); document.body.style.overflow = ''; var f = document.getElementById('pvFrame'); if (f) { f.src = 'about:blank'; f.removeAttribute('srcdoc'); } }
 
-/* Preview 面板 Light/Dark 切换（事件委托，模态框内容重挂后仍有效） */
+/* Preview 语言切换：深浅色跟随页面主题（事件委托，模态框内容重挂后仍有效） */
+function isLightTheme() { return document.documentElement.classList.contains('light'); }
+function applyPreviewSrc() {
+  var f = document.getElementById('pvFrame');
+  if (!f) return;
+  if (f.dataset.local) {
+    if (curLocalPv) f.srcdoc = curLocalPv[isLightTheme() ? 'light' : 'dark'];
+    return;
+  }
+  var lang = f.dataset.lang === 'en' ? 'en' : 'zh';
+  var src = f.dataset[lang + (isLightTheme() ? 'Light' : 'Dark')];
+  if (src) f.src = src;
+}
 document.getElementById('mdBody').addEventListener('click', function (e) {
-  var tab = e.target.closest('.pv-tab'); if (!tab) return;
-  this.querySelectorAll('.pv-tab').forEach(function (t) { t.classList.remove('active'); });
+  var tab = e.target.closest('.pv-tab'); if (!tab || !tab.dataset.lang) return;
+  this.querySelectorAll('.pv-tab[data-lang]').forEach(function (t) { t.classList.remove('active'); });
   tab.classList.add('active');
   var f = document.getElementById('pvFrame');
   if (!f) return;
-  if (tab.dataset.src) f.src = tab.dataset.src;
-  else if (curLocalPv) f.srcdoc = curLocalPv[tab.dataset.mode];
+  f.dataset.lang = tab.dataset.lang;
+  applyPreviewSrc();
 });
 
 function copyText(text) {
@@ -1782,6 +1796,7 @@ document.addEventListener('keydown', function (e) {
 document.getElementById('themeToggle').addEventListener('click', function () {
   document.documentElement.classList.toggle('light');
   this.textContent = document.documentElement.classList.contains('light') ? '🌙' : '☀';
+  applyPreviewSrc();
 });
 
 /* ---------- 新增品牌：对话框事件 ---------- */
