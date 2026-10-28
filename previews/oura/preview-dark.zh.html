@@ -1,0 +1,253 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Oura 设计分析</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"><style>
+    *{box-sizing:border-box;}
+  body{margin:0;font-family:'Inter','Inter','Helvetica Neue',Arial,sans-serif;background:#14100c;color:#ffffff;-webkit-font-smoothing:antialiased;}
+  .nav{padding:0 48px;height:64px;background:#14100c;border-bottom:1px solid #2e2820;position:sticky;top:0;z-index:50;}
+  .nav-brand{font-weight:700;font-size:16px;}
+  .nav-links{list-style:none;display:flex;gap:28px;margin:0;padding:0;font-size:15px;font-weight:500;}
+  .nav-cta{background:#2a72de;color:#ffffff;border:2px solid #2a72de;border-radius:9999px;padding:8px 22px;font-weight:600;font-size:15px;cursor:pointer;font-family:inherit;}
+  .hero{padding:96px 48px;background:#14100c;max-width:1440px;margin:0 auto;display:block;}
+  .hero-content{max-width:1200px;}
+  .hero h1{font-family:'Fraunces',Georgia,'Times New Roman',serif;font-size:72px;font-weight:340;line-height:1.05;color:#ffffff;margin:0 0 32px;letter-spacing:-1.3px;}
+  .hero p{font-size:19px;color:#a8a5a0;max-width:840px;margin:0 0 36px;line-height:1.5;}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+  .btn-primary{background:#2a72de;color:#ffffff;border:2px solid #2a72de;border-radius:9999px;height:48px;padding:0 27px;font-size:16px;font-weight:600;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;}
+  .btn-secondary{background:#cabfb0;color:#211a14;border:2px solid #cabfb0;border-radius:9999px;height:48px;padding:0 27px;font-size:16px;font-weight:600;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;}
+  section{padding:80px 48px;max-width:1440px;margin:0 auto;}
+  .section-eyebrow{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#a8a5a0;margin-bottom:8px;}
+  .section-heading{font-family:'Fraunces',Georgia,'Times New Roman',serif;font-size:36px;font-weight:340;letter-spacing:-1px;margin:0 0 32px;}
+  .palette-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
+  .swatch{border:1px solid #2e2820;border-radius:8px;overflow:hidden;}
+  .swatch-fill{height:90px;}
+  .swatch-meta{padding:12px;}
+  .swatch-name{font-weight:600;font-size:14px;margin:0 0 2px;}
+  .swatch-hex{font-family:var(--font-mono,monospace);font-size:12px;color:#a8a5a0;margin:0 0 6px;}
+  .swatch-role{font-size:12px;color:#a8a5a0;margin:0;line-height:1.4;}
+  .type-row{display:grid;grid-template-columns:240px 1fr;gap:24px;padding:18px 0;border-top:1px solid #2e2820;align-items:baseline;}
+  .type-meta{font-family:var(--font-mono,monospace);font-size:11px;color:#a8a5a0;line-height:1.5;}
+  .button-grid,.card-grid,.form-grid,.elevation-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
+  .demo-card{border:1px solid #2e2820;border-radius:12px;padding:24px;background:#211a14;}
+  .label{font-size:12px;color:#a8a5a0;display:block;margin-bottom:12px;font-weight:600;}
+  .feature-card{background:#211a14;border:1px solid #2e2820;border-radius:12px;padding:24px;}
+  .feature-card h4{margin:0 0 8px;font-size:19px;font-weight:600;}
+  .feature-card p{margin:0;color:#a8a5a0;font-size:14px;line-height:1.5;}
+  .ex-input-demo{width:100%;background:#211a14;border:1px solid #211a14;color:#ffffff;padding:12px 14px;font-family:inherit;font-size:15px;border-radius:0;}
+  .spacing-row,.radius-row{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;}
+  .spacing-box{background:#2a72de;height:40px;border-radius:6px;}
+  .spacing-label,.radius-label{font-family:var(--font-mono,monospace);font-size:11px;color:#a8a5a0;margin-top:6px;text-align:center;}
+  .radius-box{width:90px;height:90px;background:#211a14;border:2px solid #ffffff;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono,monospace);font-size:11px;}
+  .elev-card{background:#211a14;border:1px solid #2e2820;border-radius:12px;padding:24px;font-size:13px;color:#a8a5a0;}
+  .elev-1{border:1px solid #2e2820;}
+  .elev-2{box-shadow:var(--shadow-md);border:none;}
+  .responsive-table{width:100%;border-collapse:collapse;font-size:14px;}
+  .responsive-table th,.responsive-table td{text-align:left;padding:12px 14px;border-bottom:1px solid #2e2820;}
+  .responsive-table th{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#a8a5a0;}
+  .device-ladder{display:flex;gap:12px;align-items:flex-end;margin-top:24px;flex-wrap:wrap;}
+  .device-box{background:#211a14;border:1px solid #211a14;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#a8a5a0;}
+  .footer{padding:32px 48px;border-top:1px solid #2e2820;font-size:13px;color:#a8a5a0;text-align:center;}
+  .footer a{color:inherit;}
+  @media (max-width:1024px){section{padding:64px 32px;}.section-heading{font-size:28px;}.nav>:last-child{display:none;}.type-row{grid-template-columns:1fr;gap:8px;}}
+  @media (max-width:720px){.nav{padding:12px 20px;height:auto;min-height:56px;}.nav-links{display:none;}.hero{padding:48px 20px;}.hero h1{font-size:38px;letter-spacing:-1px;}.hero p{font-size:16px;}section{padding:48px 20px;}.section-heading{font-size:24px;}.palette-grid,.button-grid,.card-grid,.form-grid,.elevation-grid{grid-template-columns:1fr !important;gap:16px;}.footer{padding:24px 16px;}}
+  /* getdesign.md nav additions */
+  .nav-left { display: flex; align-items: center; gap: 20px; }
+  .nav-brand-link,.nav-brand-link:link,.nav-brand-link:visited,.nav-brand-link:hover,.nav-brand-link:active { text-decoration: none; color: inherit; }
+  .nav-github,.nav-github:link,.nav-github:visited,.nav-github:hover,.nav-github:active { display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:inherit; text-decoration:none; padding:5px 10px; border:1px solid rgba(128,128,128,0.3); border-radius:6px; opacity:0.75; transition:opacity 200ms ease,border-color 200ms ease; font-family:inherit; line-height:1; white-space:nowrap; }
+  .nav-github:hover { opacity:1; border-color:rgba(128,128,128,0.55); }
+  .nav-github svg { display:block; flex-shrink:0; }
+  /* getdesign.md nav centering */
+  .nav { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; }
+  .nav > .nav-left { justify-self:start; }
+  .nav > .nav-links { justify-self:center; }
+  .nav > :last-child { justify-self:end; }
+/* ============================== EXAMPLES (kit-mirror) ==============================
+ *
+ * Shared CSS for the 9 product-UI patterns (Pricing, Product Selector, Shopping Cart,
+ * App Shell, Data Table, Auth Forms, Modal, Empty State, Toast Stack) emitted at the
+ * end of every preview.html / preview-dark.html.
+ *
+ * This file is BRAND-AGNOSTIC. Every concrete value (color, radius, padding, font
+ * size/weight/spacing) flows through CSS variables. Each brand's preview.html must
+ * include a `:root { ... }` alias block that sets these variables from the brand's
+ * DESIGN.md ex-* entries (see preview-design.md "Emit kit-mirror Examples block").
+ *
+ * ROLE-VARIABLES (set in per-brand alias bridge — these are the points of customization):
+ *   --ex-radius-card    — outer surface of pricing tier / modal / empty / toast / table
+ *                          (resolves from ex-pricing-tier.rounded / ex-modal-card.rounded)
+ *   --ex-radius-frame   — outer wrapper for cart-drawer frame (ex-cart-drawer.rounded)
+ *   --ex-radius-tile    — image gallery tile / app-shell tile
+ *                          (resolves from max(ex-product-selector.rounded, ex-app-shell-row.rounded))
+ *   --ex-radius-input   — text input shape (resolves from components.text-input.rounded)
+ *   --ex-radius-button  — primary / outlined / tier-cta / size-btn / pager
+ *                          (resolves from components.button-primary.rounded)
+ *   --ex-radius-cell    — data-table th + td (resolves from ex-data-table-cell.rounded, often 0)
+ *   --ex-radius-status  — status pill / chip (resolves from components.status-pill.rounded
+ *                          or ex-pricing-tier-status, often = --ex-radius-button)
+ *   --ex-letter-display — display headlines (ex-h2, ex-tier-price)
+ *                          (resolves from typography.display-*.letterSpacing or 0)
+ *   --ex-letter-button  — button labels (ex-primary, ex-tier-cta, ex-outlined)
+ *                          (resolves from typography.button-*.letterSpacing or 0)
+ *   --ex-letter-eyebrow — mono eyebrows / field labels / status pills
+ *                          (resolves from typography.caption-eyebrow.letterSpacing or 0)
+ *
+ * If a brand's alias bridge doesn't set a particular --ex-* variable, the fallback
+ * value (after the comma in var(--ex-*, FALLBACK)) is used. Fallbacks chosen to be
+ * neutral / cohesive (20px outer, 6px input/button) so even brands that skip the
+ * alias bridge get a readable Examples block.
+ * ============================================================================ */
+
+.ex-section { padding: clamp(48px, 8vw, 96px) 0; border-top: 1px solid var(--color-border); background: var(--color-canvas); }
+.ex-section .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+.ex-h2 { font-family: var(--font-display); font-size: clamp(32px, 5vw, 50px); font-weight: 700; line-height: 1.0; letter-spacing: var(--ex-letter-display, 0); color: var(--color-foreground); margin: 0 0 12px; }
+.ex-intro { font-size: 16px; color: var(--color-foreground-muted); max-width: 720px; margin: 0 0 48px; line-height: 1.43; }
+.ex-mono { font-family: var(--font-mono); font-size: 11px; letter-spacing: var(--ex-letter-eyebrow, 0); text-transform: uppercase; color: var(--color-foreground-muted); }
+/* Buttons use inline-flex centring + line-height:1 so brand-shape overrides that copy
+   `line-height: 1.75` (or any leading > 1) from `typography.button-md` cannot push
+   descenders past the fixed `height` boundary. height is the single source of truth
+   for vertical box; horizontal padding controls width-padding only. */
+.ex-primary { background: var(--color-primary); color: var(--color-primary-foreground); border: 1px solid var(--color-primary); border-radius: var(--ex-radius-button, 6px); padding: 0 22px; height: 48px; font-family: var(--font-sans); font-size: 16px; font-weight: 600; letter-spacing: var(--ex-letter-button, 0); line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.ex-outlined { background: var(--color-canvas); color: var(--color-foreground); border: 1px solid var(--color-border-soft); border-radius: var(--ex-radius-button, 6px); padding: 0 20px; height: 44px; font-family: var(--font-sans); font-size: 14px; font-weight: 500; line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.ex-textlink { background: transparent; color: var(--color-foreground); border: none; padding: 6px; font-family: var(--font-sans); font-size: 14px; font-weight: 500; cursor: pointer; text-decoration: underline; }
+.ex-input { background: var(--color-canvas); border: 1px solid var(--color-border-soft); border-radius: var(--ex-radius-input, 6px); padding: 0 16px; height: 48px; font-family: var(--font-sans); font-size: 16px; color: var(--color-foreground); width: 100%; box-sizing: border-box; }
+.ex-field { display: flex; flex-direction: column; gap: 8px; }
+.ex-field-label { font-size: 12px; font-weight: 400; letter-spacing: var(--ex-letter-eyebrow, 0); text-transform: uppercase; color: var(--color-foreground); font-family: var(--font-mono); }
+.ex-td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--color-border); font-size: 14px; color: var(--color-foreground); line-height: 1.5; vertical-align: middle; }
+.ex-th { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--color-border); font-size: 11px; font-weight: 500; letter-spacing: var(--ex-letter-eyebrow, 0); text-transform: uppercase; color: var(--color-foreground-muted); background: var(--color-canvas-soft); font-family: var(--font-mono); }
+.ex-pager { height: 32px; min-width: 32px; padding: 0 10px; font-family: var(--font-mono); font-size: 12px; background: var(--color-canvas); border: 1px solid var(--color-border-soft); color: var(--color-foreground); border-radius: var(--ex-radius-button, 6px); line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.ex-pager.active { background: var(--color-foreground); color: var(--color-foreground-on-primary); border-color: var(--color-foreground); }
+.ex-grid-pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.ex-grid-product { display: grid; grid-template-columns: 1fr; gap: 32px; }
+@media (min-width: 1024px) { .ex-grid-product { grid-template-columns: 1.1fr 1fr; } }
+.ex-grid-gallery { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 8px; }
+.ex-tile { background: var(--color-canvas-soft); border: 1px solid var(--color-border); border-radius: var(--ex-radius-tile, 12px); aspect-ratio: 1; padding: 12px; display: flex; align-items: flex-end; background-image: linear-gradient(135deg, var(--color-canvas-soft) 0%, var(--color-canvas) 50%, var(--color-canvas-soft) 100%); }
+.ex-tile.tall { grid-row: span 2; aspect-ratio: 1 / 2; }
+.ex-grid-sizes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.ex-size-btn { height: 44px; border-radius: var(--ex-radius-button, 6px); font-family: var(--font-sans); font-size: 13px; font-weight: 500; line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid var(--color-border-soft); background: var(--color-canvas); color: var(--color-foreground); }
+.ex-size-btn.selected { border-color: var(--color-foreground); background: var(--color-foreground); color: var(--color-foreground-on-primary); }
+.ex-size-btn:disabled { color: var(--color-foreground-disabled); text-decoration: line-through; cursor: not-allowed; }
+.ex-grid-appshell { display: grid; grid-template-columns: 1fr; border: 1px solid var(--color-border); border-radius: var(--ex-radius-card, 20px); overflow: hidden; background: var(--color-canvas); }
+@media (min-width: 768px) { .ex-grid-appshell { grid-template-columns: 200px 1fr; } }
+.ex-grid-kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.ex-grid-auth { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+.ex-grid-toasts { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.ex-table-wrap { overflow-x: auto; border: 1px solid var(--color-border); border-radius: var(--ex-radius-card, 20px); }
+.ex-table-wrap table { width: 100%; min-width: 720px; border-collapse: collapse; font-size: 14px; }
+.ex-features { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--color-border); }
+.ex-features li { padding: 12px 0; font-size: 14px; border-bottom: 1px solid var(--color-border); display: flex; align-items: flex-start; gap: 10px; }
+.ex-features.dark { border-top-color: rgba(255,255,255,0.18); }
+.ex-features.dark li { border-bottom-color: rgba(255,255,255,0.10); }
+.ex-bullet { margin-top: 7px; width: 6px; height: 6px; background: var(--color-accent); border-radius: 9999px; flex-shrink: 0; }
+.ex-tier-card { border: 1px solid var(--color-border); border-radius: var(--ex-radius-card, 20px); padding: 28px; background: var(--color-canvas); color: var(--color-foreground); display: flex; flex-direction: column; gap: 20px; }
+.ex-tier-card.dark { background: var(--color-foreground); color: var(--color-foreground-on-primary); border-color: var(--color-foreground); }
+.ex-tier-price { font-family: var(--font-display); font-size: clamp(40px, 5vw, 50px); font-weight: 700; line-height: 1; letter-spacing: var(--ex-letter-display, 0); }
+.ex-tier-cta { margin-top: auto; height: 44px; border-radius: var(--ex-radius-button, 6px); font-family: var(--font-sans); font-size: 14px; font-weight: 600; letter-spacing: var(--ex-letter-button, 0); line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.ex-tier-cta.ink { border: 1px solid var(--color-foreground); background: var(--color-foreground); color: var(--color-foreground-on-primary); }
+.ex-tier-cta.invert { border: 1px solid var(--color-canvas); background: var(--color-canvas); color: var(--color-foreground); }
+.ex-status { display: inline-block; padding: 4px 10px; border-radius: var(--ex-radius-status, 6px); font-family: var(--font-mono); font-size: 11px; letter-spacing: var(--ex-letter-eyebrow, 0); text-transform: uppercase; }
+.ex-status.ok { color: var(--color-success); background: var(--color-accent-soft); }
+.ex-status.pending { color: var(--color-foreground-muted); background: var(--color-chip-bg); }
+.ex-status.fail { color: var(--color-danger); background: var(--color-accent-soft); }
+.ex-frame { position: relative; border-radius: var(--ex-radius-frame, 20px); border: 1px solid var(--color-border); overflow: hidden; background: var(--color-canvas-soft); }
+.ex-frame.short { height: 420px; }
+.ex-frame.tall { height: clamp(480px, 70vh, 560px); }
+.ex-scrim { position: absolute; inset: 0; background: rgba(26, 24, 22, 0.5); }
+.ex-cart-drawer { position: absolute; top: 0; right: 0; bottom: 0; width: min(420px, 100%); background: var(--color-surface-elevated); border-left: 1px solid var(--color-border); box-shadow: var(--shadow-lg); display: flex; flex-direction: column; }
+.ex-modal-card { width: 100%; max-width: 480px; background: var(--color-surface-elevated); border-radius: var(--ex-radius-card, 20px); box-shadow: var(--shadow-lg); border: 1px solid var(--color-border); }
+.ex-emptystate { border: 1px solid var(--color-border); border-radius: var(--ex-radius-card, 20px); padding: 72px 24px; display: flex; flex-direction: column; align-items: center; text-align: center; background: var(--color-canvas); }
+.ex-toast { display: grid; grid-template-columns: 3px 1fr auto; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--ex-radius-card, 20px); box-shadow: var(--shadow-md); overflow: hidden; }
+  
+  :root{
+    --color-primary:#2a72de; --color-primary-foreground:#ffffff;
+    --color-foreground:#ffffff; --color-foreground-muted:#a8a5a0; --color-foreground-tertiary:#a8a5a0;
+    --color-foreground-disabled:#2e2820; --color-foreground-on-primary:#14100c;
+    --color-canvas:#14100c; --color-canvas-soft:#211a14; --color-surface-elevated:#211a14;
+    --color-border:#2e2820; --color-border-soft:#2e2820;
+    --color-accent:#2a72de; --color-accent-soft:rgba(42,114,222,0.16);
+    --color-success:#a8a5a0; --color-warning:#a8a5a0; --color-danger:#e33a22;
+    --color-silver:#a8a5a0; --color-avatar-fill:rgba(128,128,128,0.16); --color-chip-bg:rgba(128,128,128,0.12);
+    --font-display:'Fraunces',Georgia,'Times New Roman',serif; --font-sans:'Inter','Inter',sans-serif; --font-mono:'Inter','Inter',sans-serif;
+    --shadow-md:0 8px 24px rgba(0,0,0,0.10); --shadow-lg:0 16px 40px rgba(0,0,0,0.16);
+    --ex-radius-card:24px; --ex-radius-frame:24px; --ex-radius-tile:12px; --ex-radius-input:12px;
+    --ex-radius-button:9999px; --ex-radius-status:9999px;
+    --ex-letter-display:0; --ex-letter-button:0; --ex-letter-eyebrow:1px;
+  }
+    /* Brand-shape overrides — align kit-mirror block with the brand DESIGN.md spec */
+  .ex-primary,.ex-outlined,.ex-tier-cta,.ex-pager,.ex-pager.active,.ex-size-btn,.ex-size-btn.selected{
+    border-radius:9999px; font-family:'Inter','Inter','Helvetica Neue',Arial,sans-serif; font-weight:600; letter-spacing:0; line-height:1;
+    display:inline-flex; align-items:center; justify-content:center; }
+  .ex-primary,.ex-outlined,.ex-tier-cta{ height:44px; padding:0 27px; font-size:16px; }
+  .ex-input{ border-radius:12px; font-family:'Inter','Inter','Helvetica Neue',Arial,sans-serif; }
+  /* Per-ex-* radius overrides — match DESIGN.md ex-* entry values per surface */
+  .ex-tier-card,.ex-tier-card.dark,.ex-modal-card,.ex-emptystate,.ex-toast,.ex-frame,.ex-grid-auth>div{ border-radius:24px !important; }
+  .ex-grid-product .ex-tile{ border-radius:24px !important; }
+  .ex-grid-appshell .ex-tile{ border-radius:8px !important; }
+  .ex-grid-appshell,.ex-table-wrap{ border-radius:24px !important; }
+  .ex-th,.ex-td{ border-radius:0 !important; }
+  .ex-tier-price,.ex-h2,.ex-h3{ font-family:'Fraunces',Georgia,'Times New Roman',serif; font-weight:340; letter-spacing:0; }
+  .ex-mono,.ex-field-label,.ex-th{ font-family:'Inter','Inter','Helvetica Neue',Arial,sans-serif; font-weight:600; letter-spacing:0; text-transform:uppercase; }
+  
+  /* DARK polarity-flip — featured tier flips to white fill + dark ink */
+  /* DARK polarity-flip - Pro tier card flips to white; force inline white text back to brand-ink */
+  .ex-tier-card.dark, .ex-tier-card.dark * { color:#14100c !important; }
+  .ex-tier-card.dark .ex-mono { color:rgba(0,0,0,0.55) !important; }
+  .ex-tier-card.dark .ex-features li { border-bottom-color:rgba(0,0,0,0.12) !important; }
+  .ex-tier-card.dark .ex-tier-cta.invert { background:#14100c !important; color:#ffffff !important; border-color:#14100c !important; }
+</style></head><body>
+
+<div class="hero"><div class="hero-content">
+  <h1>Oura 设计分析</h1>
+  <p>暖纸感健康系统：高对比编辑衬线体用于陈述句，安静的无衬线怪诞体用于阅读，通栏摄影承担视觉重量。所有表面都落在奶油色上，调色板是从芥末、陶土到橄榄绿的大地色系，单一果断的操作蓝驱动所有主 CTA。</p>
+  
+</div></div>
+<section><span class="section-eyebrow">01 — 基础规范</span><h2 class="section-heading">色彩调色板</h2><div class="palette-grid"><div class="swatch"><div class="swatch-fill" style="background:#2a72de"></div><div class="swatch-meta"><p class="swatch-name">Action Blue</p><p class="swatch-hex">#2a72de</p><p class="swatch-role">Primary CTA — carried over from light</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#cabfb0"></div><div class="swatch-meta"><p class="swatch-name">Stone</p><p class="swatch-hex">#cabfb0</p><p class="swatch-role">Brand neutral (inverted) — wordmark, secondary pills, links</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#a86f63"></div><div class="swatch-meta"><p class="swatch-name">Clay</p><p class="swatch-hex">#a86f63</p><p class="swatch-role">Warm brown accent (lifted)</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#8a5f52"></div><div class="swatch-meta"><p class="swatch-name">Espresso</p><p class="swatch-hex">#8a5f52</p><p class="swatch-role">Deep brown (lifted)</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#c99a4e"></div><div class="swatch-meta"><p class="swatch-name">Gold</p><p class="swatch-hex">#c99a4e</p><p class="swatch-role">Mustard accent</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#bc924c"></div><div class="swatch-meta"><p class="swatch-name">Ochre</p><p class="swatch-hex">#bc924c</p><p class="swatch-role">Mustard accent</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#ddaa61"></div><div class="swatch-meta"><p class="swatch-name">Gold Soft</p><p class="swatch-hex">#ddaa61</p><p class="swatch-role">Warm illustration</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#ddbe78"></div><div class="swatch-meta"><p class="swatch-name">Gold Pale</p><p class="swatch-hex">#ddbe78</p><p class="swatch-role">Warm illustration</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#af751b"></div><div class="swatch-meta"><p class="swatch-name">Gold Deep</p><p class="swatch-hex">#af751b</p><p class="swatch-role">Deepest mustard (lifted)</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#5c8a63"></div><div class="swatch-meta"><p class="swatch-name">Forest</p><p class="swatch-hex">#5c8a63</p><p class="swatch-role">Olive accent (lifted)</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#7b9a7c"></div><div class="swatch-meta"><p class="swatch-name">Olive</p><p class="swatch-hex">#7b9a7c</p><p class="swatch-role">Olive accent</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#a3b58e"></div><div class="swatch-meta"><p class="swatch-name">Sage</p><p class="swatch-hex">#a3b58e</p><p class="swatch-role">Sage accent</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#8f9d7f"></div><div class="swatch-meta"><p class="swatch-name">Sage Mute</p><p class="swatch-hex">#8f9d7f</p><p class="swatch-role">Muted sage</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#ced4b8"></div><div class="swatch-meta"><p class="swatch-name">Sage Pale</p><p class="swatch-hex">#ced4b8</p><p class="swatch-role">Light sage</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#14100c"></div><div class="swatch-meta"><p class="swatch-name">Canvas</p><p class="swatch-hex">#14100c</p><p class="swatch-role">Warm near-black base surface</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#211a14"></div><div class="swatch-meta"><p class="swatch-name">Surface</p><p class="swatch-hex">#211a14</p><p class="swatch-role">Elevated warm dark card</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#2b231b"></div><div class="swatch-meta"><p class="swatch-name">Surface Grey</p><p class="swatch-hex">#2b231b</p><p class="swatch-role">Secondary dark surface</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#3a322a"></div><div class="swatch-meta"><p class="swatch-name">Silver</p><p class="swatch-hex">#3a322a</p><p class="swatch-role">Warm dark product stage</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#0c0908"></div><div class="swatch-meta"><p class="swatch-name">Ink Band</p><p class="swatch-hex">#0c0908</p><p class="swatch-role">Deepest black band</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#100c0a"></div><div class="swatch-meta"><p class="swatch-name">Ink Band Soft</p><p class="swatch-hex">#100c0a</p><p class="swatch-role">Footer surface</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#f7f1e8"></div><div class="swatch-meta"><p class="swatch-name">Ink</p><p class="swatch-hex">#f7f1e8</p><p class="swatch-role">Warm off-white primary text</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#a8a5a0"></div><div class="swatch-meta"><p class="swatch-name">Ash</p><p class="swatch-hex">#a8a5a0</p><p class="swatch-role">Muted text</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#7d7871"></div><div class="swatch-meta"><p class="swatch-name">Mute</p><p class="swatch-hex">#7d7871</p><p class="swatch-role">Quietest text</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#2e2820"></div><div class="swatch-meta"><p class="swatch-name">Hairline</p><p class="swatch-hex">#2e2820</p><p class="swatch-role">Warm divider on dark</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#e33a22"></div><div class="swatch-meta"><p class="swatch-name">Error</p><p class="swatch-hex">#e33a22</p><p class="swatch-role">Validation / focus-error</p></div></div></div></section>
+<section><span class="section-eyebrow">02 — 基础规范</span><h2 class="section-heading">排版系统</h2><p style="color:#a8a5a0;margin:-16px 0 28px;max-width:720px;">Two families carry the system: <strong>Editorial New</strong>, a light high-contrast serif for display and section headlines (Fraunces shown as substitute), and <strong>AkkuratLL</strong>, a neutral grotesque for reading (Inter shown as substitute). Scale creates hierarchy; display weights stay thin.</p><div class="type-row"><div class="type-meta">display — 110px / 340 / 1.05</div><div style="font-family:'Fraunces',Georgia,serif;font-size:110px;font-weight:340;line-height:1.05;color:#f7f1e8;">Subtle. Power.</div></div><div class="type-row"><div class="type-meta">display-2 — 80px / 340 / 1.1</div><div style="font-family:'Fraunces',Georgia,serif;font-size:80px;font-weight:340;line-height:1.1;color:#f7f1e8;">Make every move count</div></div><div class="type-row"><div class="type-meta">heading-1 — 68px / 340 / 1.1</div><div style="font-family:'Fraunces',Georgia,serif;font-size:68px;font-weight:340;line-height:1.1;color:#f7f1e8;">Meet Oura's experts</div></div><div class="type-row"><div class="type-meta">heading-2 — 40px / 340 / 1.15</div><div style="font-family:'Fraunces',Georgia,serif;font-size:40px;font-weight:340;line-height:1.15;color:#f7f1e8;">Rebuilt for greater accuracy</div></div><div class="type-row"><div class="type-meta">heading-3 — 40px / 400 / 1.25</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:40px;font-weight:400;line-height:1.25;color:#f7f1e8;">Everyday health sensing</div></div><div class="type-row"><div class="type-meta">title — 32px / 400 / 1.25</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:32px;font-weight:400;line-height:1.25;color:#f7f1e8;">Your Oura Activity Score</div></div><div class="type-row"><div class="type-meta">lead — 24px / 300 / 1.25</div><div style="font-family:'Fraunces',Georgia,serif;font-size:24px;font-weight:300;line-height:1.25;color:#f7f1e8;">The world's smallest smart ring is here.</div></div><div class="type-row"><div class="type-meta">body-lg — 20px / 400 / 1.5</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:20px;font-weight:400;line-height:1.5;color:#f7f1e8;">Oura gives you insights unique to your body.</div></div><div class="type-row"><div class="type-meta">body — 18px / 400 / 1.5</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:18px;font-weight:400;line-height:1.5;color:#f7f1e8;">The science behind Oura starts with people.</div></div><div class="type-row"><div class="type-meta">body-sm — 16px / 400 / 1.5</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:16px;font-weight:400;line-height:1.5;color:#f7f1e8;">Titanium. Waterproof. Made for your everyday.</div></div><div class="type-row"><div class="type-meta">button — 16px / 600 / 1.0</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:16px;font-weight:600;line-height:1.0;color:#f7f1e8;">Shop All Products</div></div><div class="type-row"><div class="type-meta">ui — 14px / 400 / 1.4</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:14px;font-weight:400;line-height:1.4;color:#f7f1e8;">Your Health · Why Oura · For Organizations</div></div><div class="type-row"><div class="type-meta">caption — 13px / 400 / 1.4</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:400;line-height:1.4;color:#f7f1e8;">Clinical Director, Women's Health</div></div><div class="type-row"><div class="type-meta">eyebrow — 12px / 700 / 1.2</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:12px;font-weight:700;line-height:1.2;color:#f7f1e8;text-transform:uppercase;letter-spacing:1px;">IN THE NEWS</div></div></section>
+<section><span class="section-eyebrow">03 — 组件</span><h2 class="section-heading">按钮变体</h2><div class="button-grid">
+  <div class="demo-card"><span class="label">button-primary · action blue</span><button class="btn-primary" style="height:44px;">Explore</button><p style="font-size:12px;color:#a8a5a0;margin:12px 0 0;">The single blue — primary conversion CTA, carried over verbatim from light mode. Fully-rounded pill.</p></div>
+  <div class="demo-card"><span class="label">button-secondary · stone pill</span><button class="btn-primary" style="height:44px;background:#cabfb0;border-color:#cabfb0;color:#211a14;">Why Oura</button><p style="font-size:12px;color:#a8a5a0;margin:12px 0 0;">Brand neutral inverts to light warm taupe with dark label.</p></div>
+  <div class="demo-card"><span class="label">button-on-dark · light pill</span><button class="btn-primary" style="height:44px;background:#f7f1e8;border-color:#f7f1e8;color:#211a14;">Read More</button><p style="font-size:12px;color:#a8a5a0;margin:12px 0 0;">Light off-white pill floating on the deepest band.</p></div>
+  <div class="demo-card"><span class="label">button-outline · white on dark</span><button class="btn-secondary" style="height:44px;background:transparent;color:#f7f1e8;border:1px solid rgba(255,255,255,0.5);">Learn more</button><p style="font-size:12px;color:#a8a5a0;margin:12px 0 0;">Low-emphasis outline over dark imagery.</p></div>
+  <div class="demo-card"><span class="label">button-icon-circular</span><div style="display:flex;gap:12px;"><span style="width:44px;height:44px;border-radius:9999px;border:1px solid #cabfb0;display:inline-flex;align-items:center;justify-content:center;color:#cabfb0;">→</span><span style="width:44px;height:44px;border-radius:9999px;border:1px solid #2e2820;background:#211a14;display:inline-flex;align-items:center;justify-content:center;color:#f7f1e8;">+</span></div><p style="font-size:12px;color:#a8a5a0;margin:12px 0 0;">Carousel arrows (taupe outline) and person-card "+".</p></div>
+  <div class="demo-card"><span class="label">link-default</span><div style="display:flex;gap:16px;font-size:15px;font-weight:500;"><a href="#" style="color:#f7f1e8;">View pricing</a><a href="#" style="color:#f7f1e8;text-decoration:underline;">Knowledge center</a></div></div>
+</div></section>
+<section><span class="section-eyebrow">04 — 组件</span><h2 class="section-heading">卡片与表面</h2><div class="card-grid">
+  <div class="feature-card" style="background:#211a14;border:1px solid #2e2820;"><h4>功能卡片</h4><p>Warm dark elevated surface, warm hairline border, 24-pixel corners.</p></div>
+  <div class="feature-card" style="background:#0c0908;color:#fff;border:none;"><h4 style="color:#fff;">新闻卡片 / 深邃横幅</h4><p style="color:rgba(255,255,255,0.7);">The deepest black stage for the news &amp; footer band.</p></div>
+  <div class="feature-card" style="background:#3a322a;border:none;border-radius:40px;"><h4>产品 卡片</h4><p style="color:#a8a5a0;">Warm dark stage, 40-pixel corners — the machined product-showcase frame.</p></div>
+</div></section>
+<section><span class="section-eyebrow">05 — 组件</span><h2 class="section-heading">表单元素</h2><div class="form-grid">
+  <div class="demo-card"><span class="label">text-input · light field · 12px radius</span><input class="ex-input-demo" style="background:#cabfb0;color:#211a14;border:none;border-radius:12px;padding:10px 20px;" placeholder="Email address"></div>
+  <div class="demo-card"><span class="label">text-input · focus / error</span><input class="ex-input-demo" style="background:#211a14;color:#f7f1e8;border:1px solid #e33a22;border-radius:12px;padding:10px 20px;" placeholder="you@company.com"></div>
+</div></section>
+<section><span class="section-eyebrow">06 — 基础规范</span><h2 class="section-heading">间距刻度</h2><p style="color:#a8a5a0;margin:-16px 0 28px;">8px base unit. Card interiors use lg (24px); section-to-section rhythm runs large, with long vertical silences between blocks.</p><div class="spacing-row"><div><div class="spacing-box" style="width:4px"></div><div class="spacing-label">xxs<br>4px</div></div><div><div class="spacing-box" style="width:8px"></div><div class="spacing-label">xs<br>8px</div></div><div><div class="spacing-box" style="width:12px"></div><div class="spacing-label">sm<br>12px</div></div><div><div class="spacing-box" style="width:16px"></div><div class="spacing-label">md<br>16px</div></div><div><div class="spacing-box" style="width:24px"></div><div class="spacing-label">lg<br>24px</div></div><div><div class="spacing-box" style="width:32px"></div><div class="spacing-label">xl<br>32px</div></div></div></section>
+<section><span class="section-eyebrow">07 — 基础规范</span><h2 class="section-heading">圆角体系</h2><p style="color:#a8a5a0;margin:-16px 0 28px;">Fully-rounded pills (9999px) on every button, tab and stat badge; softly-rounded cards (24px); large-radius product imagery (40px); inputs at 12px.</p><div class="radius-row"><div><div class="radius-box" style="border-radius:0px">0px</div><div class="radius-label">none</div></div><div><div class="radius-box" style="border-radius:4px">4px</div><div class="radius-label">xs</div></div><div><div class="radius-box" style="border-radius:8px">8px</div><div class="radius-label">sm</div></div><div><div class="radius-box" style="border-radius:12px">12px</div><div class="radius-label">md</div></div><div><div class="radius-box" style="border-radius:24px">24px</div><div class="radius-label">lg</div></div><div><div class="radius-box" style="border-radius:40px">40px</div><div class="radius-label">xl</div></div><div><div class="radius-box" style="border-radius:9999px">full</div><div class="radius-label">full</div></div></div></section>
+<section><span class="section-eyebrow">08 — 基础规范</span><h2 class="section-heading">阴影与层级</h2><div class="elevation-grid">
+  <div class="elev-card elev-1">Level 1 — soft low-opacity shadow. News cards & the product spec card.</div>
+  <div class="elev-card elev-2">Level 2 — deeper diffuse shadow. Product-showcase media & modals.</div>
+</div></section>
+<section><span class="section-eyebrow">09 — 响应式</span><h2 class="section-heading">响应式行为</h2>
+  <table class="responsive-table"><thead><tr><th>Name</th><th>Width</th><th>Key changes</th></tr></thead><tbody>
+  <tr><td>Mobile</td><td>&lt; 768px</td><td>Single column; nav → hamburger; CTAs + pricing tiers stack full-width</td></tr>
+  <tr><td>Tablet</td><td>768–1023px</td><td>Grids collapse toward 2-up / 1-up; nav condenses</td></tr>
+  <tr><td>Laptop</td><td>1024–1279px</td><td>Tightened gutters; 3-col grids retained</td></tr>
+  <tr><td>Desktop</td><td>≥ 1280px</td><td>Full multi-column grids; centred ~1200px column</td></tr></tbody></table>
+  <div class="device-ladder">
+    <div class="device-box" style="width:60px;height:110px;">375</div>
+    <div class="device-box" style="width:120px;height:110px;">768</div>
+    <div class="device-box" style="width:170px;height:110px;">1024</div>
+    <div class="device-box" style="width:220px;height:110px;">1280</div>
+    <div class="device-box" style="width:280px;height:110px;">1440</div>
+  </div>
+  <p style="color:#a8a5a0;margin-top:24px;font-size:14px;"><strong style="color:#ffffff;">Touch targets:</strong> the pill CTAs and circular icon buttons clear 44×44 WCAG-AAA. <strong style="color:#ffffff;">Collapsing:</strong> nav → hamburger below the tablet breakpoint (blue CTA stays); multi-column pricing/feature grids reflow to a single stacked column; section padding compresses from section (128px) toward giant (64px); display serif scales down (110px → ~48px) while keeping its thin weight.</p>
+</section>
+<!-- ============================== EXAMPLES (kit-mirror) ==============================
+ *
+ * 9 product-UI patterns themed with the brand's tokens via the alias bridge in
+ * preview-examples-block.css.
+ *
+ * Paste this verbatim into preview.html and preview-dark.html, immediately before
+ * the closing <footer>. Both light and dark variants use IDENTICAL HTML — only the
+ * `:root { ... }` alias map differs (see preview-design.md).
+ *
+ * Hardcoded radii (4px / 6px / 9999px) intentionally inherited from the
+ * /generate-kit base template. Hardcoded scrim opacity (rgba 26,24,22,0.5) is the
+ * kit default; do not tokenize without parallel update.
+ * ============================================================================ -->
+<footer class="footer">Maintained by <a href="https://github.com/VoltAgent/voltagent" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img src="https://github.com/VoltAgent.png?size=32" alt="VoltAgent" width="14" height="14" style="border-radius:3px;vertical-align:-2px;margin-right:3px;">VoltAgent</a> team</footer></body></html>

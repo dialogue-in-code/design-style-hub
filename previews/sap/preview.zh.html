@@ -1,0 +1,254 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>SAP 设计分析</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"><style>
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'72 Brand Variable','Inter','Helvetica Neue',Arial,sans-serif;background:#ffffff;color:#000000;-webkit-font-smoothing:antialiased;}
+  .nav{padding:0 48px;height:64px;background:#ffffff;border-bottom:1px solid #475e75;position:sticky;top:0;z-index:50;}
+  .nav-brand{font-weight:700;font-size:16px;}
+  .nav-links{list-style:none;display:flex;gap:28px;margin:0;padding:0;font-size:15px;font-weight:500;}
+  .nav-cta{background:#0057d2;color:#ffffff;border:2px solid #0057d2;border-radius:8px;padding:8px 22px;font-weight:600;font-size:15px;cursor:pointer;font-family:inherit;}
+  .hero{padding:96px 48px;background:#ffffff;max-width:1440px;margin:0 auto;display:block;}
+  .hero-content{max-width:1200px;}
+  .hero h1{font-family:'Inter',system-ui,sans-serif;font-size:57px;font-weight:700;line-height:1.1;color:#000000;margin:0 0 32px;letter-spacing:0;}
+  .hero p{font-size:18px;color:#475e75;max-width:840px;margin:0 0 36px;line-height:1.5;}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+  .btn-primary{background:#0057d2;color:#ffffff;border:2px solid #0057d2;border-radius:8px;height:48px;padding:0 27px;font-size:16px;font-weight:600;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;}
+  .btn-secondary{background:#ffffff;color:#000000;border:1px solid #475e75;border-radius:8px;height:48px;padding:0 27px;font-size:16px;font-weight:600;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;}
+  section{padding:80px 48px;max-width:1440px;margin:0 auto;}
+  .section-eyebrow{font-size:14px;font-weight:400;text-transform:uppercase;letter-spacing:0;color:#475e75;margin-bottom:8px;}
+  .section-heading{font-family:'Inter',system-ui,sans-serif;font-size:32px;font-weight:500;letter-spacing:0;line-height:1.1;margin:0 0 32px;}
+  .palette-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
+  .swatch{border:1px solid #475e75;border-radius:8px;overflow:hidden;}
+  .swatch-fill{height:90px;}
+  .swatch-meta{padding:12px;}
+  .swatch-name{font-weight:600;font-size:14px;margin:0 0 2px;}
+  .swatch-hex{font-family:var(--font-mono,monospace);font-size:12px;color:#475e75;margin:0 0 6px;}
+  .swatch-role{font-size:12px;color:#475e75;margin:0;line-height:1.4;}
+  .type-row{display:grid;grid-template-columns:240px 1fr;gap:24px;padding:18px 0;border-top:1px solid #475e75;align-items:baseline;}
+  .type-meta{font-family:var(--font-mono,monospace);font-size:11px;color:#475e75;line-height:1.5;}
+  .button-grid,.card-grid,.form-grid,.elevation-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
+  .demo-card{border:1px solid #475e75;border-radius:12px;padding:24px;background:#ffffff;}
+  .label{font-size:12px;color:#475e75;display:block;margin-bottom:12px;font-weight:600;}
+  .feature-card{background:#ffffff;border:1px solid #475e75;border-radius:12px;padding:24px;}
+  .feature-card h4{margin:0 0 8px;font-size:18px;font-weight:600;}
+  .feature-card p{margin:0;color:#475e75;font-size:14px;line-height:1.5;}
+  .ex-input-demo{width:100%;background:#ffffff;border:1px solid #475e75;color:#000000;padding:12px 14px;font-family:inherit;font-size:15px;border-radius:0;}
+  .spacing-row,.radius-row{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;}
+  .spacing-box{background:#0057d2;height:40px;border-radius:8px;}
+  .spacing-label,.radius-label{font-family:var(--font-mono,monospace);font-size:11px;color:#475e75;margin-top:6px;text-align:center;}
+  .radius-box{width:90px;height:90px;background:#ffffff;border:2px solid #000000;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono,monospace);font-size:11px;}
+  .elev-card{background:#ffffff;border:1px solid #475e75;border-radius:12px;padding:24px;font-size:13px;color:#475e75;}
+  .elev-1{border:1px solid #475e75;}
+  .elev-2{box-shadow:var(--shadow-md);border:none;}
+  .responsive-table{width:100%;border-collapse:collapse;font-size:14px;}
+  .responsive-table th,.responsive-table td{text-align:left;padding:12px 14px;border-bottom:1px solid #475e75;}
+  .responsive-table th{font-size:14px;font-weight:400;text-transform:uppercase;letter-spacing:0;color:#475e75;}
+  .device-ladder{display:flex;gap:12px;align-items:flex-end;margin-top:24px;flex-wrap:wrap;}
+  .device-box{background:#ffffff;border:1px solid #475e75;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#475e75;}
+  .footer{padding:32px 48px;border-top:1px solid #475e75;font-size:13px;color:#475e75;text-align:center;}
+  .footer a{color:inherit;}
+  @media (max-width:1024px){section{padding:64px 32px;}.section-heading{font-size:28px;}.nav>:last-child{display:none;}.type-row{grid-template-columns:1fr;gap:8px;}}
+  @media (max-width:720px){.nav{padding:12px 20px;height:auto;min-height:56px;}.nav-links{display:none;}.hero{padding:48px 20px;}.hero h1{font-size:36px;letter-spacing:0;}.hero p{font-size:16px;}section{padding:48px 20px;}.section-heading{font-size:24px;}.palette-grid,.button-grid,.card-grid,.form-grid,.elevation-grid{grid-template-columns:1fr !important;gap:16px;}.footer{padding:24px 16px;}}
+  /* getdesign.md nav additions */
+  .nav-left { display: flex; align-items: center; gap: 20px; }
+  .nav-brand-link,.nav-brand-link:link,.nav-brand-link:visited,.nav-brand-link:hover,.nav-brand-link:active { text-decoration: none; color: inherit; }
+  .nav-github,.nav-github:link,.nav-github:visited,.nav-github:hover,.nav-github:active { display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:inherit; text-decoration:none; padding:5px 10px; border:1px solid rgba(128,128,128,0.3); border-radius:8px; opacity:0.75; transition:opacity 200ms ease,border-color 200ms ease; font-family:inherit; line-height:1; white-space:nowrap; }
+  .nav-github:hover { opacity:1; border-color:rgba(128,128,128,0.55); }
+  .nav-github svg { display:block; flex-shrink:0; }
+  /* getdesign.md nav centering */
+  .nav { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; }
+  .nav > .nav-left { justify-self:start; }
+  .nav > .nav-links { justify-self:center; }
+  .nav > :last-child { justify-self:end; }
+/* ============================== EXAMPLES (kit-mirror) ==============================
+ *
+ * Shared CSS for the 9 product-UI patterns (Pricing, Product Selector, Shopping Cart,
+ * App Shell, Data Table, Auth Forms, Modal, Empty State, Toast Stack) emitted at the
+ * end of every preview.html / preview-dark.html.
+ *
+ * This file is BRAND-AGNOSTIC. Every concrete value (color, radius, padding, font
+ * size/weight/spacing) flows through CSS variables. Each brand's preview.html must
+ * include a `:root { ... }` alias block that sets these variables from the brand's
+ * DESIGN.md ex-* entries (see preview-design.md "Emit kit-mirror Examples block").
+ *
+ * ROLE-VARIABLES (set in per-brand alias bridge — these are the points of customization):
+ *   --ex-radius-card    — outer surface of pricing tier / modal / empty / toast / table
+ *                          (resolves from ex-pricing-tier.rounded / ex-modal-card.rounded)
+ *   --ex-radius-frame   — outer wrapper for cart-drawer frame (ex-cart-drawer.rounded)
+ *   --ex-radius-tile    — image gallery tile / app-shell tile
+ *                          (resolves from max(ex-product-selector.rounded, ex-app-shell-row.rounded))
+ *   --ex-radius-input   — text input shape (resolves from components.text-input.rounded)
+ *   --ex-radius-button  — primary / outlined / tier-cta / size-btn / pager
+ *                          (resolves from components.button-primary.rounded)
+ *   --ex-radius-cell    — data-table th + td (resolves from ex-data-table-cell.rounded, often 0)
+ *   --ex-radius-status  — status pill / chip (resolves from components.status-pill.rounded
+ *                          or ex-pricing-tier-status, often = --ex-radius-button)
+ *   --ex-letter-display — display headlines (ex-h2, ex-tier-price)
+ *                          (resolves from typography.display-*.letterSpacing or 0)
+ *   --ex-letter-button  — button labels (ex-primary, ex-tier-cta, ex-outlined)
+ *                          (resolves from typography.button-*.letterSpacing or 0)
+ *   --ex-letter-eyebrow — mono eyebrows / field labels / status pills
+ *                          (resolves from typography.caption-eyebrow.letterSpacing or 0)
+ *
+ * If a brand's alias bridge doesn't set a particular --ex-* variable, the fallback
+ * value (after the comma in var(--ex-*, FALLBACK)) is used. Fallbacks chosen to be
+ * neutral / cohesive (20px outer, 6px input/button) so even brands that skip the
+ * alias bridge get a readable Examples block.
+ * ============================================================================ */
+
+.ex-section { padding: clamp(48px, 8vw, 96px) 0; border-top: 1px solid var(--color-border); background: var(--color-canvas); }
+.ex-section .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+.ex-h2 { font-family: var(--font-display); font-size: clamp(32px, 5vw, 57px); font-weight: 700; line-height: 1.0; letter-spacing: var(--ex-letter-display, 0); color: var(--color-foreground); margin: 0 0 12px; }
+.ex-intro { font-size: 16px; color: var(--color-foreground-muted); max-width: 720px; margin: 0 0 48px; line-height: 1.43; }
+.ex-mono { font-family: var(--font-mono); font-size: 11px; letter-spacing: var(--ex-letter-eyebrow, 0); text-transform: uppercase; color: var(--color-foreground-muted); }
+/* Buttons use inline-flex centring + line-height:1 so brand-shape overrides that copy
+   `line-height: 1.75` (or any leading > 1) from `typography.button-md` cannot push
+   descenders past the fixed `height` boundary. height is the single source of truth
+   for vertical box; horizontal padding controls width-padding only. */
+.ex-primary { background: var(--color-primary); color: var(--color-primary-foreground); border: 1px solid var(--color-primary); border-radius: var(--ex-radius-button, 6px); padding: 0 22px; height: 48px; font-family: var(--font-sans); font-size: 16px; font-weight: 600; letter-spacing: var(--ex-letter-button, 0); line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.ex-outlined { background: var(--color-canvas); color: var(--color-foreground); border: 1px solid var(--color-border-soft); border-radius: var(--ex-radius-button, 6px); padding: 0 20px; height: 44px; font-family: var(--font-sans); font-size: 14px; font-weight: 500; line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.ex-textlink { background: transparent; color: var(--color-foreground); border: none; padding: 6px; font-family: var(--font-sans); font-size: 14px; font-weight: 500; cursor: pointer; text-decoration: underline; }
+.ex-input { background: var(--color-canvas); border: 1px solid var(--color-border-soft); border-radius: var(--ex-radius-input, 6px); padding: 0 16px; height: 48px; font-family: var(--font-sans); font-size: 16px; color: var(--color-foreground); width: 100%; box-sizing: border-box; }
+.ex-field { display: flex; flex-direction: column; gap: 8px; }
+.ex-field-label { font-size: 12px; font-weight: 400; letter-spacing: var(--ex-letter-eyebrow, 0); text-transform: uppercase; color: var(--color-foreground); font-family: var(--font-mono); }
+.ex-td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--color-border); font-size: 14px; color: var(--color-foreground); line-height: 1.5; vertical-align: middle; }
+.ex-th { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--color-border); font-size: 11px; font-weight: 500; letter-spacing: var(--ex-letter-eyebrow, 0); text-transform: uppercase; color: var(--color-foreground-muted); background: var(--color-canvas-soft); font-family: var(--font-mono); }
+.ex-pager { height: 32px; min-width: 32px; padding: 0 10px; font-family: var(--font-mono); font-size: 12px; background: var(--color-canvas); border: 1px solid var(--color-border-soft); color: var(--color-foreground); border-radius: var(--ex-radius-button, 6px); line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.ex-pager.active { background: var(--color-foreground); color: var(--color-foreground-on-primary); border-color: var(--color-foreground); }
+.ex-grid-pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.ex-grid-product { display: grid; grid-template-columns: 1fr; gap: 32px; }
+@media (min-width: 1024px) { .ex-grid-product { grid-template-columns: 1.1fr 1fr; } }
+.ex-grid-gallery { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 8px; }
+.ex-tile { background: var(--color-canvas-soft); border: 1px solid var(--color-border); border-radius: var(--ex-radius-tile, 12px); aspect-ratio: 1; padding: 12px; display: flex; align-items: flex-end; background-image: linear-gradient(135deg, var(--color-canvas-soft) 0%, var(--color-canvas) 50%, var(--color-canvas-soft) 100%); }
+.ex-tile.tall { grid-row: span 2; aspect-ratio: 1 / 2; }
+.ex-grid-sizes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.ex-size-btn { height: 44px; border-radius: var(--ex-radius-button, 6px); font-family: var(--font-sans); font-size: 13px; font-weight: 500; line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid var(--color-border-soft); background: var(--color-canvas); color: var(--color-foreground); }
+.ex-size-btn.selected { border-color: var(--color-foreground); background: var(--color-foreground); color: var(--color-foreground-on-primary); }
+.ex-size-btn:disabled { color: var(--color-foreground-disabled); text-decoration: line-through; cursor: not-allowed; }
+.ex-grid-appshell { display: grid; grid-template-columns: 1fr; border: 1px solid var(--color-border); border-radius: var(--ex-radius-card, 20px); overflow: hidden; background: var(--color-canvas); }
+@media (min-width: 768px) { .ex-grid-appshell { grid-template-columns: 200px 1fr; } }
+.ex-grid-kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.ex-grid-auth { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+.ex-grid-toasts { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.ex-table-wrap { overflow-x: auto; border: 1px solid var(--color-border); border-radius: var(--ex-radius-card, 20px); }
+.ex-table-wrap table { width: 100%; min-width: 720px; border-collapse: collapse; font-size: 14px; }
+.ex-features { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--color-border); }
+.ex-features li { padding: 12px 0; font-size: 14px; border-bottom: 1px solid var(--color-border); display: flex; align-items: flex-start; gap: 10px; }
+.ex-features.dark { border-top-color: rgba(255,255,255,0.18); }
+.ex-features.dark li { border-bottom-color: rgba(255,255,255,0.10); }
+.ex-bullet { margin-top: 7px; width: 6px; height: 6px; background: var(--color-accent); border-radius: 9999px; flex-shrink: 0; }
+.ex-tier-card { border: 1px solid var(--color-border); border-radius: var(--ex-radius-card, 20px); padding: 28px; background: var(--color-canvas); color: var(--color-foreground); display: flex; flex-direction: column; gap: 20px; }
+.ex-tier-card.dark { background: var(--color-foreground); color: var(--color-foreground-on-primary); border-color: var(--color-foreground); }
+.ex-tier-price { font-family: var(--font-display); font-size: clamp(36px, 5vw, 57px); font-weight: 700; line-height: 1; letter-spacing: var(--ex-letter-display, 0); }
+.ex-tier-cta { margin-top: auto; height: 44px; border-radius: var(--ex-radius-button, 6px); font-family: var(--font-sans); font-size: 14px; font-weight: 600; letter-spacing: var(--ex-letter-button, 0); line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.ex-tier-cta.ink { border: 1px solid var(--color-foreground); background: var(--color-foreground); color: var(--color-foreground-on-primary); }
+.ex-tier-cta.invert { border: 1px solid var(--color-canvas); background: var(--color-canvas); color: var(--color-foreground); }
+.ex-status { display: inline-block; padding: 4px 10px; border-radius: var(--ex-radius-status, 6px); font-family: var(--font-mono); font-size: 11px; letter-spacing: var(--ex-letter-eyebrow, 0); text-transform: uppercase; }
+.ex-status.ok { color: var(--color-success); background: var(--color-accent-soft); }
+.ex-status.pending { color: var(--color-foreground-muted); background: var(--color-chip-bg); }
+.ex-status.fail { color: var(--color-danger); background: var(--color-accent-soft); }
+.ex-frame { position: relative; border-radius: var(--ex-radius-frame, 20px); border: 1px solid var(--color-border); overflow: hidden; background: var(--color-canvas-soft); }
+.ex-frame.short { height: 420px; }
+.ex-frame.tall { height: clamp(480px, 70vh, 560px); }
+.ex-scrim { position: absolute; inset: 0; background: rgba(26, 24, 22, 0.5); }
+.ex-cart-drawer { position: absolute; top: 0; right: 0; bottom: 0; width: min(420px, 100%); background: var(--color-surface-elevated); border-left: 1px solid var(--color-border); box-shadow: var(--shadow-lg); display: flex; flex-direction: column; }
+.ex-modal-card { width: 100%; max-width: 480px; background: var(--color-surface-elevated); border-radius: var(--ex-radius-card, 20px); box-shadow: var(--shadow-lg); border: 1px solid var(--color-border); }
+.ex-emptystate { border: 1px solid var(--color-border); border-radius: var(--ex-radius-card, 20px); padding: 72px 24px; display: flex; flex-direction: column; align-items: center; text-align: center; background: var(--color-canvas); }
+.ex-toast { display: grid; grid-template-columns: 3px 1fr auto; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--ex-radius-card, 20px); box-shadow: var(--shadow-md); overflow: hidden; }
+  :root{
+    --color-primary:#0057d2; --color-primary-foreground:#ffffff;
+    --color-foreground:#000000; --color-foreground-muted:#475e75; --color-foreground-tertiary:#9a9aa1;
+    --color-foreground-disabled:#475e75; --color-foreground-on-primary:#ffffff;
+    --color-canvas:#ffffff; --color-canvas-soft:#f5f6f7; --color-surface-elevated:#ffffff;
+    --color-border:#475e75; --color-border-soft:#475e75;
+    --color-accent:#0040b0; --color-accent-soft:#6bc0ff;
+    --color-success:#475e75; --color-warning:#475e75; --color-danger:#022879;
+    --color-silver:#9a9aa1; --color-avatar-fill:rgba(128,128,128,0.16); --color-chip-bg:rgba(128,128,128,0.12);
+    --font-display:'Inter',system-ui,sans-serif; --font-sans:'72 Brand Variable','Inter',sans-serif; --font-mono:'72 Brand Variable','Inter',sans-serif;
+    --shadow-md:0 8px 24px rgba(0,0,0,0.10); --shadow-lg:0 16px 40px rgba(0,0,0,0.16);
+    --ex-radius-card:8px; --ex-radius-frame:8px; --ex-radius-tile:12px; --ex-radius-input:8px;
+    --ex-radius-button:8px; --ex-radius-status:8px;
+    --ex-letter-display:0; --ex-letter-button:0; --ex-letter-eyebrow:0;
+  }
+  /* Brand-shape overrides — align kit-mirror block with the brand DESIGN.md spec */
+  .ex-primary,.ex-outlined,.ex-tier-cta,.ex-pager,.ex-pager.active,.ex-size-btn,.ex-size-btn.selected{
+    border-radius:8px; font-family:'72 Brand Variable','Inter','Helvetica Neue',Arial,sans-serif; font-weight:600; letter-spacing:0; line-height:1;
+    display:inline-flex; align-items:center; justify-content:center; }
+  .ex-primary,.ex-outlined,.ex-tier-cta{ height:44px; padding:0 27px; font-size:16px; }
+  .ex-input{ border-radius:8px; font-family:'72 Brand Variable','Inter','Helvetica Neue',Arial,sans-serif; }
+  .ex-tier-card,.ex-tier-card.dark,.ex-modal-card,.ex-emptystate,.ex-toast,.ex-frame{ border-radius:8px; } .ex-tile{ border-radius:12px; }
+  .ex-tier-price,.ex-h2,.ex-h3{ font-family:'Inter',system-ui,sans-serif; font-weight:700; letter-spacing:0; }
+  .ex-mono,.ex-field-label,.ex-th{ font-family:'72 Brand Variable','Inter','Helvetica Neue',Arial,sans-serif; font-weight:600; letter-spacing:0; text-transform:uppercase; }
+  
+  /* Per-ex-* radius overrides — match DESIGN.md ex-* entry values per surface */
+  .ex-tier-card, .ex-tier-card.dark { border-radius:8px !important; padding:24px !important; }
+  .ex-frame, .ex-frame.tall { border-radius:8px !important; }
+  .ex-frame.short { border-radius:12px !important; }
+  .ex-modal-card { border-radius:12px !important; }
+  .ex-emptystate { border-radius:12px !important; padding:40px !important; }
+  .ex-toast { border-radius:8px !important; padding:12px 16px !important; }
+  .ex-grid-product .ex-tile, .ex-grid-gallery .ex-tile { border-radius:8px !important; }
+  .ex-grid-appshell .ex-tile, .ex-grid-kpi .ex-tile { border-radius:8px !important; }
+  .ex-th, .ex-td { border-radius:0 !important; padding:12px 16px !important; }
+  .ex-grid-auth > div { border-radius:8px !important; padding:24px !important; }
+  .ex-table-skeleton, .ex-grid-appshell { border-radius:8px !important; }
+  .ex-input { border-radius:8px !important; }
+</style></head><body>
+
+
+<div class="hero"><div class="hero-content">
+  <h1>SAP 设计分析</h1>
+  <p>像应用框架而非营销表面的企业系统：产品标签栏上方的浅色框架条、被四条通栏扁平色带切开的画布，以及一种承担所有操作的蓝色。深度来自色带与渐变而非投影，控件圆角止于 8px，媒体 12px。</p>
+  
+</div></div>
+<section><span class="section-eyebrow">01 — 基础规范</span><h2 class="section-heading">色彩调色板</h2><div class="palette-grid"><div class="swatch"><div class="swatch-fill" style="background:#0057d2;"></div><div class="swatch-meta"><p class="swatch-name">primary</p><p class="swatch-hex">#0057d2</p><p class="swatch-role">The acting colour. Every filled button, every inline link, the active product tab.</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#0040b0;"></div><div class="swatch-meta"><p class="swatch-name">primary-deep</p><p class="swatch-hex">#0040b0</p><p class="swatch-role">The solid hero band on interior pages, and the label inside an outline button.</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#ffffff;"></div><div class="swatch-meta"><p class="swatch-name">on-primary</p><p class="swatch-hex">#ffffff</p><p class="swatch-role">The label on every blue fill and all type inside the hero band.</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#022879;"></div><div class="swatch-meta"><p class="swatch-name">navy</p><p class="swatch-hex">#022879</p><p class="swatch-role">The anchor of the home hero gradient, the one atmospheric surface in the system.</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#6bc0ff;"></div><div class="swatch-meta"><p class="swatch-name">sky</p><p class="swatch-hex">#6bc0ff</p><p class="swatch-role">A light blue panel used inside the services layout.</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#ffffff;"></div><div class="swatch-meta"><p class="swatch-name">canvas</p><p class="swatch-hex">#ffffff</p><p class="swatch-role">The working ground. Content panes, cards and most sections sit on it unchanged.</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#f5f6f7;"></div><div class="swatch-meta"><p class="swatch-name">chrome</p><p class="swatch-hex">#f5f6f7</p><p class="swatch-role">The global navigation bar, and the neutral band used to set a section apart.</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#eaecee;"></div><div class="swatch-meta"><p class="swatch-name">band</p><p class="swatch-hex">#eaecee</p><p class="swatch-role">The footer ground, and the largest non-canvas surface on the home page.</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#ebf8ff;"></div><div class="swatch-meta"><p class="swatch-name">band-blue</p><p class="swatch-hex">#ebf8ff</p><p class="swatch-role">A pale blue strip that lifts a section out of the canvas run.</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#f7f4ff;"></div><div class="swatch-meta"><p class="swatch-name">band-lavender</p><p class="swatch-hex">#f7f4ff</p><p class="swatch-role">A softer wash on product pages, the one band with a curved upper edge.</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#000000;"></div><div class="swatch-meta"><p class="swatch-name">ink</p><p class="swatch-hex">#000000</p><p class="swatch-role">Headings at every level, set at full strength.</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#3c3c3c;"></div><div class="swatch-meta"><p class="swatch-name">ink-lead</p><p class="swatch-hex">#3c3c3c</p><p class="swatch-role">The 28px lead paragraph that follows a display headline.</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#223548;"></div><div class="swatch-meta"><p class="swatch-name">ink-body</p><p class="swatch-hex">#223548</p><p class="swatch-role">Body copy. A slate rather than a grey.</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#354a5f;"></div><div class="swatch-meta"><p class="swatch-name">ink-list</p><p class="swatch-hex">#354a5f</p><p class="swatch-role">List items, one step lighter than body.</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#475e75;"></div><div class="swatch-meta"><p class="swatch-name">ink-meta</p><p class="swatch-hex">#475e75</p><p class="swatch-role">Captions and footnotes, the quietest legible tier.</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#545454;"></div><div class="swatch-meta"><p class="swatch-name">ink-nav</p><p class="swatch-hex">#545454</p><p class="swatch-role">Navigation, breadcrumbs and tab labels — the chrome's own grey.</p></div></div><div class="swatch"><div class="swatch-fill" style="background:#475e75;"></div><div class="swatch-meta"><p class="swatch-name">hairline</p><p class="swatch-hex">#475e75</p><p class="swatch-role">The rule on an outline button.</p></div></div></div></section>
+<section><span class="section-eyebrow">02 — 基础规范</span><h2 class="section-heading">排版系统</h2><p style="color:#475e75;margin:-16px 0 28px;max-width:720px;">72 Brand Variable is SAP's own variable typeface (Inter shown as substitute). What the variable axis buys is a weight range wider than most corporate systems use — 350, 400, 500 and 700 all appear — and the design leans on it hardest at the small end, where a 15px list item at 350 and a 15px nav link at 400 read as different classes of text at identical size. Tracking is left at zero everywhere.</p><div class="type-row"><div class="type-meta">display<br>72 Brand Variable · 57px · 700<br>lh 62.7px · ls 0</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:57px;font-weight:700;line-height:62.7px;letter-spacing:0;">Home display headline</div></div><div class="type-row"><div class="type-meta">hero-title<br>72 Brand Variable · 36px · 500<br>lh 39.6px · ls 0</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:36px;font-weight:500;line-height:39.6px;letter-spacing:0;">Interior hero title</div></div><div class="type-row"><div class="type-meta">section-title<br>72 Brand Variable · 32px · 500<br>lh 35.2px · ls 0</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:32px;font-weight:500;line-height:35.2px;letter-spacing:0;">Section heading</div></div><div class="type-row"><div class="type-meta">lead<br>72 Brand Variable · 28px · 400<br>lh 30.8px · ls 0</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:28px;font-weight:400;line-height:30.8px;letter-spacing:0;">Lead paragraph</div></div><div class="type-row"><div class="type-meta">subhead<br>72 Brand Variable · 20px · 500<br>lh 22px · ls 0</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:20px;font-weight:500;line-height:22px;letter-spacing:0;">Feature title, active tab</div></div><div class="type-row"><div class="type-meta">body-lg<br>72 Brand Variable · 20px · 400<br>lh 30px · ls 0</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:20px;font-weight:400;line-height:30px;letter-spacing:0;">Large body copy</div></div><div class="type-row"><div class="type-meta">body<br>72 Brand Variable · 18px · 400<br>lh 27px · ls 0</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:18px;font-weight:400;line-height:27px;letter-spacing:0;">Body copy</div></div><div class="type-row"><div class="type-meta">button<br>72 Brand Variable · 16px · 500<br>lh 17.6px · ls 0</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:16px;font-weight:500;line-height:17.6px;letter-spacing:0;">Button label</div></div><div class="type-row"><div class="type-meta">link<br>72 Brand Variable · 16px · 400<br>lh 24px · ls 0</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:16px;font-weight:400;line-height:24px;letter-spacing:0;">Inline text link</div></div><div class="type-row"><div class="type-meta">nav-link<br>72 Brand Variable · 15px · 400<br>lh 21px · ls 0</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:15px;font-weight:400;line-height:21px;letter-spacing:0;">Navigation, breadcrumb</div></div><div class="type-row"><div class="type-meta">list-item<br>72 Brand Variable · 15px · 350<br>lh 21px · ls 0</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:15px;font-weight:350;line-height:21px;letter-spacing:0;">List item</div></div><div class="type-row"><div class="type-meta">caption<br>72 Brand Variable · 14px · 400<br>lh 21px · ls 0</div><div style="font-family:'Inter',system-ui,sans-serif;font-size:14px;font-weight:400;line-height:21px;letter-spacing:0;">Caption, tab label, footnote</div></div></section>
+<section><span class="section-eyebrow">03 — 组件</span><h2 class="section-heading">按钮变体</h2><div class="button-grid">
+  <div class="demo-card"><span class="label">button-primary · 8px</span><button class="btn-primary" style="height:44px;background:#0057d2;border:none;color:#ffffff;border-radius:8px;padding:12px 14px;font-size:16px;font-weight:500;">Request a demo</button><p style="font-size:12px;color:#475e75;margin:12px 0 0;">The acting colour. Blue is the only thing on this site that signals an action.</p></div>
+  <div class="demo-card"><span class="label">button-outline · hairline rule</span><button class="btn-primary" style="height:40px;background:#ffffff;border:1px solid #475e75;color:#0040b0;border-radius:8px;padding:8px 9px;font-size:16px;font-weight:500;">Read the announcement</button><p style="font-size:12px;color:#475e75;margin:12px 0 0;">The quiet partner in a hero CTA pair, bounded by a hairline with the deeper blue as its label.</p></div>
+  <div class="demo-card"><span class="label">button-floating · 58px</span><button class="btn-primary" style="height:58px;background:#0057d2;border:none;color:#ffffff;border-radius:8px;padding:16px 20px;font-size:14px;font-weight:400;">Contact us</button></div>
+  <div class="demo-card"><span class="label">product-tab / tab-active</span><span style="display:inline-flex;gap:20px;align-items:flex-end;"><span style="display:inline-block;padding-bottom:6px;border-bottom:2px solid #0057d2;font-size:20px;font-weight:500;color:#0057d2;">Overview</span><span style="display:inline-block;padding-bottom:6px;font-size:14px;font-weight:400;color:#545454;">Pricing</span></span></div>
+  <div class="demo-card"><span class="label">text links</span><div style="display:flex;gap:16px;font-size:15px;font-weight:500;"><a href="#" style="color:#000000;">View pricing</a><a href="#" style="color:#000000;text-decoration:underline;">Knowledge center</a></div></div>
+</div></section>
+<section><span class="section-eyebrow">04 — 组件</span><h2 class="section-heading">卡片与表面</h2><div class="card-grid">
+  <div class="feature-card"><h4>media-frame</h4><p>The container around a photograph or illustration, at the system's 12px corner.</p></div>
+  <div class="feature-card" style="background:#022879;color:#fff;border:none;border-radius:0;"><h4 style="color:#fff;">navy-hero</h4><p style="color:rgba(255,255,255,0.8);">The home hero field: a gradient anchored on navy, the one atmospheric surface in a system that is otherwise flat.</p></div>
+  <div class="feature-card" style="background:#f5f6f7;border:none;border-radius:0;"><h4>band-neutral</h4><p>A full-width flat band with square edges. Bands are how this layout separates sections — never a border, never a shadow.</p></div>
+</div></section>
+<section><span class="section-eyebrow">05 — 组件</span><h2 class="section-heading">表单元素</h2><div class="form-grid">
+  <div class="demo-card"><span class="label">field · 8px</span><input class="ex-input-demo" placeholder="you@company.com"></div>
+  <div class="demo-card"><span class="label">textarea</span><textarea class="ex-input-demo" rows="3" placeholder="Message"></textarea></div>
+</div></section>
+<section><span class="section-eyebrow">06 — 基础规范</span><h2 class="section-heading">间距刻度</h2><p style="color:#475e75;margin:-16px 0 28px;">An 8px base unit with a fine sub-step for control padding. Controls sit tight — the primary button pads 12px by 14px — and the large steps from 32px upward carry the vertical rhythm between bands.</p><div class="spacing-row"><div><div class="spacing-box" style="width:3px;"></div><div class="spacing-label">xxs<br>2</div></div><div><div class="spacing-box" style="width:3px;"></div><div class="spacing-label">xs<br>3</div></div><div><div class="spacing-box" style="width:8px;"></div><div class="spacing-label">sm<br>8</div></div><div><div class="spacing-box" style="width:9px;"></div><div class="spacing-label">md<br>9</div></div><div><div class="spacing-box" style="width:10px;"></div><div class="spacing-label">lg<br>10</div></div><div><div class="spacing-box" style="width:12px;"></div><div class="spacing-label">xl<br>12</div></div><div><div class="spacing-box" style="width:15px;"></div><div class="spacing-label">xxl<br>15</div></div><div><div class="spacing-box" style="width:16px;"></div><div class="spacing-label">wide<br>16</div></div><div><div class="spacing-box" style="width:20px;"></div><div class="spacing-label">section<br>20</div></div><div><div class="spacing-box" style="width:24px;"></div><div class="spacing-label">giant<br>24</div></div><div><div class="spacing-box" style="width:32px;"></div><div class="spacing-label">max<br>32</div></div><div><div class="spacing-box" style="width:40px;"></div><div class="spacing-label">huge<br>40</div></div><div><div class="spacing-box" style="width:48px;"></div><div class="spacing-label">hero<br>48</div></div><div><div class="spacing-box" style="width:56px;"></div><div class="spacing-label">band<br>56</div></div><div><div class="spacing-box" style="width:72px;"></div><div class="spacing-label">page<br>72</div></div></div></section>
+<section><span class="section-eyebrow">07 — 基础规范</span><h2 class="section-heading">圆角体系</h2><p style="color:#475e75;margin:-16px 0 28px;">The scale is short and stops early: 8px on every control, 12px on media, and nothing at all on full-width regions. Nothing in this system is a pill.</p><div class="radius-row"><div><div class="radius-box" style="border-radius:0px;">0px</div><div class="radius-label">none</div></div><div><div class="radius-box" style="border-radius:4px;">4px</div><div class="radius-label">sm</div></div><div><div class="radius-box" style="border-radius:8px;">8px</div><div class="radius-label">md</div></div><div><div class="radius-box" style="border-radius:12px;">12px</div><div class="radius-label">lg</div></div></div></section>
+<section><span class="section-eyebrow">08 — 基础规范</span><h2 class="section-heading">阴影与层级</h2><div class="elevation-grid">
+  <div class="elev-card elev-1">Level 1 — 1px hairline. Card borders & footer dividers.</div>
+  <div class="elev-card elev-2">Level 2 — soft drop shadow. The floating nav pill & modals.</div>
+</div></section>
+<section><span class="section-eyebrow">09 — 响应式</span><h2 class="section-heading">响应式行为</h2>
+  <table class="responsive-table"><thead><tr><th>Name</th><th>Width</th><th>Key changes</th></tr></thead><tbody>
+  <tr><td>Mobile</td><td>480–767px</td><td>Single column; nav collapses to a menu; two-column features stack</td></tr>
+  <tr><td>Tablet</td><td>768–1023px</td><td>Two-column features hold; hero image moves below its text</td></tr>
+  <tr><td>Laptop</td><td>1024–1279px</td><td>Full grid; tab rail shows all tabs; hero returns to side-by-side</td></tr>
+  <tr><td>Desktop</td><td>1280–1439px</td><td>Centred content column at full width</td></tr></tbody></table>
+  <div class="device-ladder">
+    <div class="device-box" style="width:60px;height:110px;">375</div>
+    <div class="device-box" style="width:120px;height:110px;">768</div>
+    <div class="device-box" style="width:170px;height:110px;">1024</div>
+    <div class="device-box" style="width:220px;height:110px;">1280</div>
+    <div class="device-box" style="width:280px;height:110px;">1440</div>
+  </div>
+  <p style="color:#475e75;margin-top:24px;font-size:14px;"><strong style="color:#000000;">Touch targets:</strong> button-floating clears 44×44 WCAG-AAA at 58px and button-primary meets it exactly at 44px; the inactive product tab sits at 32px. <strong style="color:#000000;">Collapsing:</strong> the global bar collapses its links behind a menu but keeps the logo, search and account affordances; the product tab rail becomes a horizontal scroller so the active tab stays anchored; two-column features stack and the 2x2 grid keeps its hairlines; bands hold their full-bleed width at every size while their inner padding compresses.</p>
+</section>
+<!-- ============================== EXAMPLES (kit-mirror) ==============================
+ *
+ * 9 product-UI patterns themed with the brand's tokens via the alias bridge in
+ * preview-examples-block.css.
+ *
+ * Paste this verbatim into preview.html and preview-dark.html, immediately before
+ * the closing <footer>. Both light and dark variants use IDENTICAL HTML — only the
+ * `:root { ... }` alias map differs (see preview-design.md).
+ *
+ * Hardcoded radii (4px / 6px / 9999px) intentionally inherited from the
+ * /generate-kit base template. Hardcoded scrim opacity (rgba 26,24,22,0.5) is the
+ * kit default; do not tokenize without parallel update.
+ * ============================================================================ -->
+<footer class="footer">Maintained by <a href="https://github.com/VoltAgent/voltagent" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img src="https://github.com/VoltAgent.png?size=32" alt="VoltAgent" width="14" height="14" style="border-radius:4px;vertical-align:-2px;margin-right:3px;">VoltAgent</a> team</footer></body></html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Design System Analysis of Oracle</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;350;400;500;600;700;800&display=swap" rel="stylesheet"><style>
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Inter','Inter','Helvetica Neue',Arial,sans-serif;background:#ffffff;color:#161513;-webkit-font-smoothing:antialiased;}
+  .nav{padding:0 48px;height:64px;background:#ffffff;border-bottom:1px solid #e4e1dd;position:sticky;top:0;z-index:50;}
+  .nav-brand{font-weight:700;font-size:16px;}
+  .nav-links{list-style:none;display:flex;gap:28px;margin:0;padding:0;font-size:15px;font-weight:500;}
+  .nav-cta{background:#312d2a;color:#ffffff;border:1px solid #312d2a;border-radius:4px;padding:10px 16px;font-weight:600;font-size:15px;cursor:pointer;font-family:inherit;}
+  .hero{padding:96px 48px;background:#ffffff;max-width:1440px;margin:0 auto;display:block;}
+  .hero-content{max-width:1200px;}
+  .hero h1{font-family:Georgia,'Times New Roman',serif;font-size:72px;font-weight:400;line-height:1.05;color:#161513;margin:0 0 32px;letter-spacing:0;}
+  .hero p{font-size:19px;color:#665f5b;max-width:840px;margin:0 0 36px;line-height:1.5;}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+  .btn-primary{background:#312d2a;color:#ffffff;border:1px solid #312d2a;border-radius:4px;height:48px;padding:0 24px;font-size:16px;font-weight:600;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;}
+  .btn-secondary{background:#ffffff;color:#161513;border:1px solid #161513;border-radius:4px;height:48px;padding:0 24px;font-size:16px;font-weight:600;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;}
+  section{padding:80px 48px;max-width:1440px;margin:0 auto;}
+  .section-eyebrow{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0;color:#665f5b;margin-bottom:8px;}
+  .section-heading{font-family:Georgia,'Times New Roman',serif;font-size:36px;font-weight:400;letter-spacing:0;margin:0 0 32px;}
+  .palette-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
+  .swatch{border:1px solid #e4e1dd;border-radius:8px;overflow:hidden;}
+  .swatch-fill{height:90px;}
+  .swatch-meta{padding:12px;}
+  .swatch-name{font-weight:600;font-size:14px;margin:0 0 2px;}
+  .swatch-hex{font-family:var(--font-mono,monospace);font-size:12px;color:#665f5b;margin:0 0 6px;}
+  .swatch-role{font-size:12px;color:#665f5b;margin:0;line-height:1.4;}
+  .type-row{display:grid;grid-template-columns:240px 1fr;gap:24px;padding:18px 0;border-top:1px solid #e4e1dd;align-items:baseline;}
+  .type-meta{font-family:var(--font-mono,monospace);font-size:11px;color:#665f5b;line-height:1.5;}
+  .button-grid,.card-grid,.form-grid,.elevation-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
+  .demo-card{border:1px solid #e4e1dd;border-radius:12px;padding:24px;background:#ffffff;}
+  .label{font-size:12px;color:#665f5b;display:block;margin-bottom:12px;font-weight:600;}
+  .feature-card{background:#ffffff;border:1px solid #e4e1dd;border-radius:15px;padding:24px;}
+  .feature-card h4{margin:0 0 8px;font-size:19px;font-weight:600;}
+  .feature-card p{margin:0;color:#665f5b;font-size:14px;line-height:1.5;}
+  .ex-input-demo{width:100%;background:#ffffff;border:1px solid #e4e1dd;color:#161513;padding:12px 14px;font-family:inherit;font-size:15px;border-radius:0;}
+  .spacing-row,.radius-row{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;}
+  .spacing-box{background:#312d2a;height:40px;border-radius:6px;}
+  .spacing-label,.radius-label{font-family:var(--font-mono,monospace);font-size:11px;color:#665f5b;margin-top:6px;text-align:center;}
+  .radius-box{width:90px;height:90px;background:#ffffff;border:2px solid #161513;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono,monospace);font-size:11px;}
+  .elev-card{background:#ffffff;border:1px solid #e4e1dd;border-radius:12px;padding:24px;font-size:13px;color:#665f5b;}
+  .elev-1{border:1px solid #e4e1dd;}
+  .elev-2{box-shadow:var(--shadow-md);border:none;}
+  .responsive-table{width:100%;border-collapse:collapse;font-size:14px;}
+  .responsive-table th,.responsive-table td{text-align:left;padding:12px 14px;border-bottom:1px solid #e4e1dd;}
+  .responsive-table th{font-size:11px;text-transform:uppercase;letter-spacing:0;color:#665f5b;}
+  .device-ladder{display:flex;gap:12px;align-items:flex-end;margin-top:24px;flex-wrap:wrap;}
+  .device-box{background:#ffffff;border:1px solid #e4e1dd;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#665f5b;}
+  .footer{padding:32px 48px;border-top:1px solid #e4e1dd;font-size:13px;color:#665f5b;text-align:center;}
+  .footer a{color:inherit;}
+  @media (max-width:1024px){section{padding:64px 32px;}.section-heading{font-size:28px;}.nav>:last-child{display:none;}.type-row{grid-template-columns:1fr;gap:8px;}}
+  @media (max-width:720px){.nav{padding:12px 20px;height:auto;min-height:56px;}.nav-links{display:none;}.hero{padding:48px 20px;}.hero h1{font-size:38px;letter-spacing:0;}.hero p{font-size:16px;}section{padding:48px 20px;}.section-heading{font-size:24px;}.palette-grid,.button-grid,.card-grid,.form-grid,.elevation-grid{grid-template-columns:1fr !important;gap:16px;}.footer{padding:24px 16px;}}
+  /* getdesign.md nav additions */
+  .nav-left { display: flex; align-items: center; gap: 20px; }
+  .nav-brand-link,.nav-brand-link:link,.nav-brand-link:visited,.nav-brand-link:hover,.nav-brand-link:active { text-decoration: none; color: inherit; }
+  .nav-github,.nav-github:link,.nav-github:visited,.nav-github:hover,.nav-github:active { display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:inherit; text-decoration:none; padding:5px 10px; border:1px solid rgba(128,128,128,0.3); border-radius:6px; opacity:0.75; transition:opacity 200ms ease,border-color 200ms ease; font-family:inherit; line-height:1; white-space:nowrap; }
+  .nav-github:hover { opacity:1; border-color:rgba(128,128,128,0.55); }
+  .nav-github svg { display:block; flex-shrink:0; }
+  /* getdesign.md nav centering */
+  .nav { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; }
+  .nav > .nav-left { justify-self:start; }
+  .nav > .nav-links { justify-self:center; }
+  .nav > :last-child { justify-self:end; }
+/* ============================== EXAMPLES (kit-mirror) ==============================
+ *
+ * Shared CSS for the 9 product-UI patterns (Pricing, Product Selector, Shopping Cart,
+ * App Shell, Data Table, Auth Forms, Modal, Empty State, Toast Stack) emitted at the
+ * end of every preview.html / preview-dark.html.
+ *
+ * This file is BRAND-AGNOSTIC. Every concrete value (color, radius, padding, font
+ * size/weight/spacing) flows through CSS variables. Each brand's preview.html must
+ * include a `:root { ... }` alias block that sets these variables from the brand's
+ * DESIGN.md ex-* entries (see preview-design.md "Emit kit-mirror Examples block").
+ *
+ * ROLE-VARIABLES (set in per-brand alias bridge — these are the points of customization):
+ *   --ex-radius-card    — outer surface of pricing tier / modal / empty / toast / table
+ *                          (resolves from ex-pricing-tier.rounded / ex-modal-card.rounded)
+ *   --ex-radius-frame   — outer wrapper for cart-drawer frame (ex-cart-drawer.rounded)
+ *   --ex-radius-tile    — image gallery tile / app-shell tile
+ *                          (resolves from max(ex-product-selector.rounded, ex-app-shell-row.rounded))
+ *   --ex-radius-input   — text input shape (resolves from components.text-input.rounded)
+ *   --ex-radius-button  — primary / outlined / tier-cta / size-btn / pager
+ *                          (resolves from components.button-primary.rounded)
+ *   --ex-radius-cell    — data-table th + td (resolves from ex-data-table-cell.rounded, often 0)
+ *   --ex-radius-status  — status pill / chip (resolves from components.status-pill.rounded
+ *                          or ex-pricing-tier-status, often = --ex-radius-button)
+ *   --ex-letter-display — display headlines (ex-h2, ex-tier-price)
+ *                          (resolves from typography.display-*.letterSpacing or 0)
+ *   --ex-letter-button  — button labels (ex-primary, ex-tier-cta, ex-outlined)
+ *                          (resolves from typography.button-*.letterSpacing or 0)
+ *   --ex-letter-eyebrow — mono eyebrows / field labels / status pills
+ *                          (resolves from typography.caption-eyebrow.letterSpacing or 0)
+ *
+ * If a brand's alias bridge doesn't set a particular --ex-* variable, the fallback
+ * value (after the comma in var(--ex-*, FALLBACK)) is used. Fallbacks chosen to be
+ * neutral / cohesive (20px outer, 6px input/button) so even brands that skip the
+ * alias bridge get a readable Examples block.
+ * ============================================================================ */
+
+.ex-section { padding: clamp(48px, 8vw, 96px) 0; border-top: 1px solid var(--color-border); background: var(--color-canvas); }
+.ex-section .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+.ex-h2 { font-family: var(--font-display); font-size: clamp(32px, 5vw, 50px); font-weight: 700; line-height: 1.0; letter-spacing: var(--ex-letter-display, 0); color: var(--color-foreground); margin: 0 0 12px; }
+.ex-intro { font-size: 16px; color: var(--color-foreground-muted); max-width: 720px; margin: 0 0 48px; line-height: 1.43; }
+.ex-mono { font-family: var(--font-mono); font-size: 11px; letter-spacing: var(--ex-letter-eyebrow, 0); text-transform: uppercase; color: var(--color-foreground-muted); }
+/* Buttons use inline-flex centring + line-height:1 so brand-shape overrides that copy
+   `line-height: 1.75` (or any leading > 1) from `typography.button-md` cannot push
+   descenders past the fixed `height` boundary. height is the single source of truth
+   for vertical box; horizontal padding controls width-padding only. */
+.ex-primary { background: var(--color-primary); color: var(--color-primary-foreground); border: 1px solid var(--color-primary); border-radius: var(--ex-radius-button, 6px); padding: 0 22px; height: 48px; font-family: var(--font-sans); font-size: 16px; font-weight: 600; letter-spacing: var(--ex-letter-button, 0); line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.ex-outlined { background: var(--color-canvas); color: var(--color-foreground); border: 1px solid var(--color-border-soft); border-radius: var(--ex-radius-button, 6px); padding: 0 20px; height: 44px; font-family: var(--font-sans); font-size: 14px; font-weight: 500; line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.ex-textlink { background: transparent; color: var(--color-foreground); border: none; padding: 6px; font-family: var(--font-sans); font-size: 14px; font-weight: 500; cursor: pointer; text-decoration: underline; }
+.ex-input { background: var(--color-canvas); border: 1px solid var(--color-border-soft); border-radius: var(--ex-radius-input, 6px); padding: 0 16px; height: 48px; font-family: var(--font-sans); font-size: 16px; color: var(--color-foreground); width: 100%; box-sizing: border-box; }
+.ex-field { display: flex; flex-direction: column; gap: 8px; }
+.ex-field-label { font-size: 12px; font-weight: 400; letter-spacing: var(--ex-letter-eyebrow, 0); text-transform: uppercase; color: var(--color-foreground); font-family: var(--font-mono); }
+.ex-td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--color-border); font-size: 14px; color: var(--color-foreground); line-height: 1.5; vertical-align: middle; }
+.ex-th { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--color-border); font-size: 11px; font-weight: 500; letter-spacing: var(--ex-letter-eyebrow, 0); text-transform: uppercase; color: var(--color-foreground-muted); background: var(--color-canvas-soft); font-family: var(--font-mono); }
+.ex-pager { height: 32px; min-width: 32px; padding: 0 10px; font-family: var(--font-mono); font-size: 12px; background: var(--color-canvas); border: 1px solid var(--color-border-soft); color: var(--color-foreground); border-radius: var(--ex-radius-button, 6px); line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.ex-pager.active { background: var(--color-foreground); color: var(--color-foreground-on-primary); border-color: var(--color-foreground); }
+.ex-grid-pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.ex-grid-product { display: grid; grid-template-columns: 1fr; gap: 32px; }
+@media (min-width: 1024px) { .ex-grid-product { grid-template-columns: 1.1fr 1fr; } }
+.ex-grid-gallery { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 8px; }
+.ex-tile { background: var(--color-canvas-soft); border: 1px solid var(--color-border); border-radius: var(--ex-radius-tile, 12px); aspect-ratio: 1; padding: 12px; display: flex; align-items: flex-end; background-image: linear-gradient(135deg, var(--color-canvas-soft) 0%, var(--color-canvas) 50%, var(--color-canvas-soft) 100%); }
+.ex-tile.tall { grid-row: span 2; aspect-ratio: 1 / 2; }
+.ex-grid-sizes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.ex-size-btn { height: 44px; border-radius: var(--ex-radius-button, 6px); font-family: var(--font-sans); font-size: 13px; font-weight: 500; line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid var(--color-border-soft); background: var(--color-canvas); color: var(--color-foreground); }
+.ex-size-btn.selected { border-color: var(--color-foreground); background: var(--color-foreground); color: var(--color-foreground-on-primary); }
+.ex-size-btn:disabled { color: var(--color-foreground-disabled); text-decoration: line-through; cursor: not-allowed; }
+.ex-grid-appshell { display: grid; grid-template-columns: 1fr; border: 1px solid var(--color-border); border-radius: var(--ex-radius-card, 20px); overflow: hidden; background: var(--color-canvas); }
+@media (min-width: 768px) { .ex-grid-appshell { grid-template-columns: 200px 1fr; } }
+.ex-grid-kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.ex-grid-auth { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+.ex-grid-toasts { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.ex-table-wrap { overflow-x: auto; border: 1px solid var(--color-border); border-radius: var(--ex-radius-card, 20px); }
+.ex-table-wrap table { width: 100%; min-width: 720px; border-collapse: collapse; font-size: 14px; }
+.ex-features { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--color-border); }
+.ex-features li { padding: 12px 0; font-size: 14px; border-bottom: 1px solid var(--color-border); display: flex; align-items: flex-start; gap: 10px; }
+.ex-features.dark { border-top-color: rgba(255,255,255,0.18); }
+.ex-features.dark li { border-bottom-color: rgba(255,255,255,0.10); }
+.ex-bullet { margin-top: 7px; width: 6px; height: 6px; background: var(--color-accent); border-radius: 9999px; flex-shrink: 0; }
+.ex-tier-card { border: 1px solid var(--color-border); border-radius: var(--ex-radius-card, 20px); padding: 28px; background: var(--color-canvas); color: var(--color-foreground); display: flex; flex-direction: column; gap: 20px; }
+.ex-tier-card.dark { background: var(--color-foreground); color: var(--color-foreground-on-primary); border-color: var(--color-foreground); }
+.ex-tier-price { font-family: var(--font-display); font-size: clamp(40px, 5vw, 50px); font-weight: 700; line-height: 1; letter-spacing: var(--ex-letter-display, 0); }
+.ex-tier-cta { margin-top: auto; height: 44px; border-radius: var(--ex-radius-button, 6px); font-family: var(--font-sans); font-size: 14px; font-weight: 600; letter-spacing: var(--ex-letter-button, 0); line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.ex-tier-cta.ink { border: 1px solid var(--color-foreground); background: var(--color-foreground); color: var(--color-foreground-on-primary); }
+.ex-tier-cta.invert { border: 1px solid var(--color-canvas); background: var(--color-canvas); color: var(--color-foreground); }
+.ex-status { display: inline-block; padding: 4px 10px; border-radius: var(--ex-radius-status, 6px); font-family: var(--font-mono); font-size: 11px; letter-spacing: var(--ex-letter-eyebrow, 0); text-transform: uppercase; }
+.ex-status.ok { color: var(--color-success); background: var(--color-accent-soft); }
+.ex-status.pending { color: var(--color-foreground-muted); background: var(--color-chip-bg); }
+.ex-status.fail { color: var(--color-danger); background: var(--color-accent-soft); }
+.ex-frame { position: relative; border-radius: var(--ex-radius-frame, 20px); border: 1px solid var(--color-border); overflow: hidden; background: var(--color-canvas-soft); }
+.ex-frame.short { height: 420px; }
+.ex-frame.tall { height: clamp(480px, 70vh, 560px); }
+.ex-scrim { position: absolute; inset: 0; background: rgba(26, 24, 22, 0.5); }
+.ex-cart-drawer { position: absolute; top: 0; right: 0; bottom: 0; width: min(420px, 100%); background: var(--color-surface-elevated); border-left: 1px solid var(--color-border); box-shadow: var(--shadow-lg); display: flex; flex-direction: column; }
+.ex-modal-card { width: 100%; max-width: 480px; background: var(--color-surface-elevated); border-radius: var(--ex-radius-card, 20px); box-shadow: var(--shadow-lg); border: 1px solid var(--color-border); }
+.ex-emptystate { border: 1px solid var(--color-border); border-radius: var(--ex-radius-card, 20px); padding: 72px 24px; display: flex; flex-direction: column; align-items: center; text-align: center; background: var(--color-canvas); }
+.ex-toast { display: grid; grid-template-columns: 3px 1fr auto; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--ex-radius-card, 20px); box-shadow: var(--shadow-md); overflow: hidden; }
+
+  :root{
+    --color-primary:#312d2a; --color-primary-foreground:#ffffff;
+    --color-foreground:#161513; --color-foreground-muted:#665f5b; --color-foreground-tertiary:#665f5b;
+    --color-foreground-disabled:#e4e1dd; --color-foreground-on-primary:#ffffff;
+    --color-canvas:#ffffff; --color-canvas-soft:#fbf9f8; --color-surface-elevated:#f5f4f2;
+    --color-border:#e4e1dd; --color-border-soft:#e4e1dd;
+    --color-accent:#006b8f; --color-accent-soft:#d6e5e5;
+    --color-success:#006b8f; --color-warning:#665f5b; --color-danger:#d63b25;
+    --color-silver:#665f5b; --color-avatar-fill:rgba(128,128,128,0.16); --color-chip-bg:rgba(128,128,128,0.12);
+    --font-display:Georgia,'Times New Roman',serif; --font-sans:'Inter','Inter',sans-serif; --font-mono:'Inter','Inter',sans-serif;
+    --shadow-md:0 8px 24px rgba(0,0,0,0.10); --shadow-lg:0 16px 40px rgba(0,0,0,0.16);
+    --ex-radius-card:8px; --ex-radius-frame:8px; --ex-radius-tile:12px; --ex-radius-input:6px;
+    --ex-radius-button:4px; --ex-radius-status:4px;
+    --ex-letter-display:0; --ex-letter-button:0; --ex-letter-eyebrow:0;
+  }
+  /* Brand-shape overrides — align kit-mirror block with the brand DESIGN.md spec */
+  .ex-primary,.ex-outlined,.ex-tier-cta,.ex-pager,.ex-pager.active,.ex-size-btn,.ex-size-btn.selected{
+    border-radius:4px; font-family:'Inter','Inter','Helvetica Neue',Arial,sans-serif; font-weight:600; letter-spacing:0; line-height:1;
+    display:inline-flex; align-items:center; justify-content:center; }
+  .ex-primary,.ex-outlined,.ex-tier-cta{ height:44px; padding:0 24px; font-size:16px; }
+  .ex-input{ border-radius:6px; font-family:'Inter','Inter','Helvetica Neue',Arial,sans-serif; }
+  .ex-tier-card,.ex-tier-card.dark,.ex-modal-card,.ex-emptystate,.ex-toast,.ex-frame{ border-radius:8px; } .ex-tile{ border-radius:12px; }
+  .ex-tier-price,.ex-h2,.ex-h3{ font-family:Georgia,'Times New Roman',serif; font-weight:400; letter-spacing:0; }
+  .ex-mono,.ex-field-label,.ex-th{ font-family:'Inter','Inter','Helvetica Neue',Arial,sans-serif; font-weight:600; letter-spacing:0; text-transform:uppercase; }
+  
+  /* Per-ex-* radius + padding overrides — match DESIGN.md ex-* entry values per surface */
+  .ex-tier-card,.ex-tier-card.dark{ border-radius:8px !important; padding:24px !important; }
+  .ex-frame.tall,.ex-frame.short{ border-radius:8px !important; }
+  .ex-modal-card{ border-radius:8px !important; padding:24px !important; }
+  .ex-toast{ border-radius:8px !important; padding:12px 20px !important; }
+  .ex-tile{ border-radius:8px !important; }
+  .ex-th,.ex-td{ border-radius:0 !important; padding:12px 16px !important; }
+  .ex-grid-auth > div{ border-radius:8px !important; padding:24px !important; }
+  .ex-emptystate{ border-radius:8px !important; padding:48px 24px !important; }
+  .ex-table-skeleton,.ex-grid-appshell{ border-radius:8px !important; }
+  .ex-primary,.ex-outlined,.ex-tier-cta,.ex-pager,.ex-size-btn{ border-radius:4px !important; }
+  .ex-input{ border-radius:6px !important; }
+  /* Brand tracking is zero at every size */
+  .ex-h2,.ex-h3,.ex-tier-price,.ex-mono,.ex-th,.ex-field-label{ letter-spacing:0 !important; }
+  /* The system has no shadows */
+  .ex-tier-card,.ex-modal-card,.ex-toast,.ex-cart-drawer,.ex-frame,.ex-tile{ box-shadow:none !important; }
+</style></head><body>
+
+<nav class="nav">
+  <div class="nav-left">
+    <a href="https://getdesign.md/" target="_blank" rel="noopener noreferrer" class="nav-brand-link"><span class="nav-brand">getdesign.md</span></a>
+    <a class="nav-github" href="https://github.com/VoltAgent/awesome-design-md" target="_blank" rel="noopener noreferrer" aria-label="awesome-design-md on GitHub"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2 .37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>awesome-design-md</a>
+  </div>
+  <ul class="nav-links"><li>Infrastructure</li><li>Applications</li><li>Database</li><li>Analytics</li></ul>
+  <button class="nav-cta">Sign in to Cloud</button>
+</nav>
+<div class="hero"><div class="hero-content">
+  <h1>Design System Analysis of Oracle</h1>
+  <p>An enterprise system built on a warm neutral ladder rather than a colour palette. Six rungs carry almost every surface, a single charcoal carries every action, and the famous red is held back for the wordmark alone. Two display registers coexist, being a very light sans on the corporate index and a Georgia serif across the product pages.</p>
+  <div class="hero-actions"><button class="btn-primary">Explore the system</button><button class="btn-secondary">View the bands</button></div>
+</div></div>
+<section><span class="section-eyebrow">01 — Foundations</span><h2 class="section-heading">Color Palette</h2><div class="palette-grid"><div class="swatch"><div class="swatch-fill" style="background:#312d2a;"></div><div class="swatch-meta"><p class="swatch-name">primary</p><p class="swatch-hex">#312d2a</p><p class="swatch-role">The fill behind every primary action on the site. Warm rather than neutral, and a clear step lighter than ink so a filled button reads as an object rather than a block of text.</p></div></div>
+<div class="swatch"><div class="swatch-fill" style="background:#ffffff;"></div><div class="swatch-meta"><p class="swatch-name">on-primary</p><p class="swatch-hex">#ffffff</p><p class="swatch-role">The label on a filled action, and the text colour on every inverted surface.</p></div></div>
+<div class="swatch"><div class="swatch-fill" style="background:#c74634;"></div><div class="swatch-meta"><p class="swatch-name">brand-mark</p><p class="swatch-hex">#c74634</p><p class="swatch-role">The wordmark, and only the wordmark. A trademark colour that does not shift with polarity and is never used for a button, link, border or band.</p></div></div>
+<div class="swatch"><div class="swatch-fill" style="background:#161513;"></div><div class="swatch-meta"><p class="swatch-name">ink</p><p class="swatch-hex">#161513</p><p class="swatch-role">Every heading and every line of body copy. A warm near-black, never pure black, which keeps the very light 300-weight display sizes from looking harsh.</p></div></div>
+<div class="swatch"><div class="swatch-fill" style="background:#211e1c;"></div><div class="swatch-meta"><p class="swatch-name">ink-deep</p><p class="swatch-hex">#211e1c</p><p class="swatch-role">The dark end of the ladder, used as a full-width band behind the product sub-navigation.</p></div></div>
+<div class="swatch"><div class="swatch-fill" style="background:#ffffff;"></div><div class="swatch-meta"><p class="swatch-name">canvas</p><p class="swatch-hex">#ffffff</p><p class="swatch-role">The masthead, the footer, content cards, and the brightest section bands.</p></div></div>
+<div class="swatch"><div class="swatch-fill" style="background:#fbf9f8;"></div><div class="swatch-meta"><p class="swatch-name">canvas-soft</p><p class="swatch-hex">#fbf9f8</p><p class="swatch-role">The most common product-page section fill. One barely-perceptible step from the base rung.</p></div></div>
+<div class="swatch"><div class="swatch-fill" style="background:#f5f4f2;"></div><div class="swatch-meta"><p class="swatch-name">canvas-tint</p><p class="swatch-hex">#f5f4f2</p><p class="swatch-role">The next step, used for supporting sections and the contact hero.</p></div></div>
+<div class="swatch"><div class="swatch-fill" style="background:#f1efed;"></div><div class="swatch-meta"><p class="swatch-name">canvas-warm</p><p class="swatch-hex">#f1efed</p><p class="swatch-role">The most-used rung, carrying the corporate index page almost end to end and every product hero band.</p></div></div>
+<div class="swatch"><div class="swatch-fill" style="background:#e4e1dd;"></div><div class="swatch-meta"><p class="swatch-name">hairline</p><p class="swatch-hex">#e4e1dd</p><p class="swatch-role">The tile and disabled-control border, and the last neutral rung before the surfaces become content.</p></div></div>
+<div class="swatch"><div class="swatch-fill" style="background:#e9e7e4;"></div><div class="swatch-meta"><p class="swatch-name">divider</p><p class="swatch-hex">#e9e7e4</p><p class="swatch-role">The 2px vertical rule that separates the contact page's channel columns.</p></div></div>
+<div class="swatch"><div class="swatch-fill" style="background:#d4cfca;"></div><div class="swatch-meta"><p class="swatch-name">field-border</p><p class="swatch-hex">#d4cfca</p><p class="swatch-role">The 1px border around the masthead search field, one clear step from hairline so an input reads as interactive against a card that merely reads as a container.</p></div></div>
+<div class="swatch"><div class="swatch-fill" style="background:#006b8f;"></div><div class="swatch-meta"><p class="swatch-name">link</p><p class="swatch-hex">#006b8f</p><p class="swatch-role">Inline links in body copy and channel columns. A deep teal-blue, set without an underline, at the same size and weight as the text around it.</p></div></div>
+<div class="swatch"><div class="swatch-fill" style="background:#f0cc71;"></div><div class="swatch-meta"><p class="swatch-name">accent-gold</p><p class="swatch-hex">#f0cc71</p><p class="swatch-role">A 40 × 4px bar sitting under the hero headline on every product page. The system's one piece of ornament.</p></div></div>
+<div class="swatch"><div class="swatch-fill" style="background:#f7e0a1;"></div><div class="swatch-meta"><p class="swatch-name">accent-gold-soft</p><p class="swatch-hex">#f7e0a1</p><p class="swatch-role">A paler gold, 5px tall, marking the selected item in the dark product sub-navigation.</p></div></div>
+<div class="swatch"><div class="swatch-fill" style="background:#d6e5e5;"></div><div class="swatch-meta"><p class="swatch-name">band-teal</p><p class="swatch-hex">#d6e5e5</p><p class="swatch-role">A teal strip, roughly 120 to 160px tall, used to break a run of neutral sections.</p></div></div>
+<div class="swatch"><div class="swatch-fill" style="background:#33553c;"></div><div class="swatch-meta"><p class="swatch-name">band-forest</p><p class="swatch-hex">#33553c</p><p class="swatch-role">The one deep colour band, carrying inverted text and a multi-column link list.</p></div></div>
+<div class="swatch"><div class="swatch-fill" style="background:#227e9e;"></div><div class="swatch-meta"><p class="swatch-name">focus</p><p class="swatch-hex">#227e9e</p><p class="swatch-role">The focus indicator, declared once and applied identically on light and dark surfaces, so a keyboard user sees the same ring in both polarities.</p></div></div>
+<div class="swatch"><div class="swatch-fill" style="background:#d63b25;"></div><div class="swatch-meta"><p class="swatch-name">error</p><p class="swatch-hex">#d63b25</p><p class="swatch-role">Validation messaging and error field text.</p></div></div>
+<div class="swatch"><div class="swatch-fill" style="background:#aea8a2;"></div><div class="swatch-meta"><p class="swatch-name">disabled-ink</p><p class="swatch-hex">#aea8a2</p><p class="swatch-role">The label on a disabled control, paired with a canvas-soft fill and a hairline border.</p></div></div></div></section>
+<section><span class="section-eyebrow">02 — Foundations</span><h2 class="section-heading">Typography</h2><p style="color:#665f5b;margin:-16px 0 28px;max-width:720px;">Two display registers run side by side — Oracle Sans at weight 300 on the corporate index, and Georgia across the product pages. Beneath both, Oracle Sans handles everything else, dropping to 350 for running copy and jumping to 800 for section headings, so hierarchy is carried by weight far more than by size. Letter-spacing is zero on every role at every size. Inter stands in for Oracle Sans; Georgia is shown as itself.</p><div class="type-row"><div class="type-meta">display-serif-xl · Georgia<br>56px / 400 / lh 67.2px / ls 0</div><div style="font-family:Georgia,'Times New Roman',serif;font-size:52px;font-weight:400;line-height:1.2;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Product hero headline</div></div>
+<div class="type-row"><div class="type-meta">display-serif-lg · Georgia<br>40px / 400 / lh 48px / ls 0</div><div style="font-family:Georgia,'Times New Roman',serif;font-size:40px;font-weight:400;line-height:1.2;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Major section headline</div></div>
+<div class="type-row"><div class="type-meta">display-serif-md · Georgia<br>36px / 400 / lh 43.2px / ls 0</div><div style="font-family:Georgia,'Times New Roman',serif;font-size:36px;font-weight:400;line-height:1.2;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Product page headline</div></div>
+<div class="type-row"><div class="type-meta">display-sans-lg · Inter<br>40px / 300 / lh 52px / ls 0</div><div style="font-family:'Inter',sans-serif;font-size:40px;font-weight:300;line-height:1.2;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Corporate index section headline</div></div>
+<div class="type-row"><div class="type-meta">display-sans-md · Inter<br>32px / 300 / lh 44px / ls 0</div><div style="font-family:'Inter',sans-serif;font-size:32px;font-weight:300;line-height:1.2;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Corporate index page headline</div></div>
+<div class="type-row"><div class="type-meta">heading-xl · Inter<br>28px / 800 / lh 33.6px / ls 0</div><div style="font-family:'Inter',sans-serif;font-size:28px;font-weight:800;line-height:1.2;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Product section heading</div></div>
+<div class="type-row"><div class="type-meta">heading-lg · Inter<br>24px / 800 / lh 28.8px / ls 0</div><div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:800;line-height:1.2;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Section and channel-column heading</div></div>
+<div class="type-row"><div class="type-meta">heading-md · Inter<br>20px / 800 / lh 24px / ls 0</div><div style="font-family:'Inter',sans-serif;font-size:20px;font-weight:800;line-height:1.2;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Sub-section heading</div></div>
+<div class="type-row"><div class="type-meta">heading-sm · Inter<br>18px / 800 / lh 21.6px / ls 0</div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:800;line-height:1.2;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Card heading</div></div>
+<div class="type-row"><div class="type-meta">heading-card · Inter<br>24px / 600 / lh 32px / ls 0</div><div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:600;line-height:1.2;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Corporate index card heading</div></div>
+<div class="type-row"><div class="type-meta">lead · Inter<br>24px / 400 / lh 33.6px / ls 0</div><div style="font-family:'Inter',sans-serif;font-size:24px;font-weight:400;line-height:1.2;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Standfirst paragraph under a hero</div></div>
+<div class="type-row"><div class="type-meta">body · Inter<br>16px / 400 / lh 22.4px / ls 0</div><div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:400;line-height:1.2;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Product page running copy and links</div></div>
+<div class="type-row"><div class="type-meta">body-loose · Inter<br>16px / 350 / lh 24px / ls 0</div><div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:350;line-height:1.2;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Corporate index running copy</div></div>
+<div class="type-row"><div class="type-meta">body-strong · Inter<br>16px / 700 / lh 22.4px / ls 0</div><div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;line-height:1.2;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Emphasised list item and inline lead-in</div></div>
+<div class="type-row"><div class="type-meta">label · Inter<br>14px / 500 / lh 16.8px / ls 0</div><div style="font-family:'Inter',sans-serif;font-size:14px;font-weight:500;line-height:1.2;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Button label</div></div>
+<div class="type-row"><div class="type-meta">label-strong · Inter<br>14px / 600 / lh 20px / ls 0</div><div style="font-family:'Inter',sans-serif;font-size:14px;font-weight:600;line-height:1.2;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Navigation tile label</div></div>
+<div class="type-row"><div class="type-meta">caption · Inter<br>12px / 400 / lh 20px / ls 0</div><div style="font-family:'Inter',sans-serif;font-size:12px;font-weight:400;line-height:1.2;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Footer links and fine print</div></div></section>
+<section><span class="section-eyebrow">03 — Components</span><h2 class="section-heading">Masthead &amp; Navigation</h2><p style="color:#665f5b;margin:-16px 0 28px;max-width:820px;">The masthead is identical on every page. Product pages add a full-bleed sticky sub-navigation below it, which ships in two polarities — a deep band with a gold active bar, and a light band with an ink underline.</p>
+<div style="display:grid;gap:20px;">
+  <div><span class="label">masthead · 85px, canvas, rounded none</span><div style="background:#ffffff;border:1px solid #e4e1dd;border-radius:0;height:85px;display:flex;align-items:center;gap:20px;padding:0 24px;">
+    <span style="font-size:20px;color:#161513;">☰</span>
+    <span style="font-family:'Inter',sans-serif;font-size:24px;font-weight:800;letter-spacing:0;color:#c74634;">ORACLE</span>
+    <span style="flex:1;max-width:520px;background:#ffffff;color:#161513;border:1px solid #d4cfca;border-radius:6px;padding:12px 18px;font-size:16px;">Search</span>
+    <span style="margin-left:auto;color:#161513;font-size:16px;">◍ &nbsp; ◐ &nbsp; ◑</span></div>
+    <p style="font-size:12px;color:#665f5b;margin:10px 0 0;">logo-wordmark is the only appearance of the brand red in the interface.</p></div>
+  <div><span class="label">product-subnav · 64px, ink-deep, rounded none</span><div style="background:#211e1c;color:#ffffff;border-radius:0;height:64px;display:flex;align-items:center;gap:28px;padding:0 24px;font-size:16px;font-weight:400;position:relative;">
+    <span style="position:relative;">Overview<span style="position:absolute;left:0;bottom:-20px;width:67px;height:5px;background:#f7e0a1;display:block;"></span></span><span>Support</span><span>Library</span><span>Community</span><span>Pricing</span><span>Customers</span></div>
+    <p style="font-size:12px;color:#665f5b;margin:16px 0 0;">subnav-active-bar is 67 × 5px in the paler gold.</p></div>
+  <div><span class="label">product-subnav-light · 64px, canvas, rounded none</span><div style="background:#ffffff;color:#161513;border:1px solid #e4e1dd;border-radius:0;height:64px;display:flex;align-items:center;gap:28px;padding:0 24px;font-size:16px;font-weight:400;">
+    <span style="border-bottom:3px solid #161513;padding-bottom:6px;font-weight:700;">Overview</span><span>Features</span><span>FAQ</span></div></div>
+</div></section>
+<section><span class="section-eyebrow">04 — Components</span><h2 class="section-heading">Button Variants</h2><p style="color:#665f5b;margin:-16px 0 28px;max-width:820px;">Every button in the system is 4px with 10px 16px padding and a 14px medium label. Only the fill and border change between variants, and there is no coloured CTA anywhere.</p><div class="button-grid">
+  <div class="demo-card"><span class="label">button-primary</span><button style="background:#312d2a;color:#ffffff;border:1px solid #312d2a;border-radius:4px;padding:10px 16px;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;line-height:16.8px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;">Try Oracle AI Database</button><p style="font-size:12px;color:#665f5b;margin:12px 0 0;">The primary action everywhere. Frequently markup'd as an anchor.</p></div>
+  <div class="demo-card"><span class="label">button-primary-pressed</span><button style="background:#47423e;color:#ffffff;border:1px solid #47423e;border-radius:4px;padding:10px 16px;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;line-height:16.8px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;">Try Oracle AI Database</button></div>
+  <div class="demo-card"><span class="label">button-secondary · outlined</span><button style="background:transparent;color:#161513;border:1px solid #161513;border-radius:4px;padding:10px 16px;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;line-height:16.8px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;">Chat with Oracle Sales</button></div>
+  <div class="demo-card"><span class="label">button-tertiary · 8% ink wash</span><button style="background:rgba(22,21,19,0.08);color:#161513;border:1px solid transparent;border-radius:4px;padding:10px 16px;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;line-height:16.8px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;">Access the webinar</button></div>
+  <div class="demo-card"><span class="label">button-primary-disabled</span><button style="background:#fbf9f8;color:#aea8a2;border:1px solid #e4e1dd;border-radius:4px;padding:10px 16px;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;line-height:16.8px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;" disabled>Request a live demo</button></div>
+  <div class="demo-card" style="background:#211e1c;"><span class="label" style="color:#ffffff;opacity:.8;">button-primary-inverse · on the opposite polarity</span><button style="background:#ffffff;color:#161513;border:1px solid #ffffff;border-radius:4px;padding:10px 16px;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;line-height:16.8px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;">Sign in to Cloud</button></div>
+  <div class="demo-card" style="background:#211e1c;"><span class="label" style="color:#ffffff;opacity:.8;">button-secondary-inverse</span><button style="background:transparent;color:#ffffff;border:1px solid #ffffff;border-radius:4px;padding:10px 16px;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;line-height:16.8px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;">Create an Account</button></div>
+  <div class="demo-card"><span class="label">link-inline · no underline</span><div style="display:flex;gap:18px;font-size:16px;font-weight:400;"><a href="#" style="color:#006b8f;text-decoration:none;">Send us a message</a><a href="#" style="color:#006b8f;text-decoration:none;">Find phone numbers</a></div></div>
+</div></section>
+<section><span class="section-eyebrow">05 — Components</span><h2 class="section-heading">Bands &amp; Sections</h2><p style="color:#665f5b;margin:-16px 0 28px;max-width:820px;">All band variants are full-bleed, square-cornered and padded 48px 0. They differ only in fill, and the steps between adjacent neutral rungs are deliberately small.</p>
+<div style="display:grid;gap:16px;">
+  <div><span class="label">hero-band + hero-eyebrow-rule · canvas-warm, rounded none</span><div style="background:#f1efed;color:#161513;border-radius:0;padding:48px 32px;"><div style="font-family:Georgia,'Times New Roman',serif;font-size:36px;font-weight:400;line-height:1.2;">Oracle Analytics</div><div style="width:40px;height:4px;background:#f0cc71;margin:18px 0 18px;"></div><p style="margin:0;font-size:16px;max-width:520px;">Every product page opens on this band, carrying a low-contrast pattern overlay and a 40 × 4px gold rule under the headline.</p></div></div>
+  <div><span class="label">section-band-white · neutral 00</span><div style="background:#ffffff;color:#161513;border-radius:0;padding:32px 24px;border:1px solid #e4e1dd;"><p style="margin:0;font-size:16px;font-weight:400;">The brightest rung. Used for the masthead, the footer and the cleanest content sections.</p></div></div>
+  <div><span class="label">section-band-soft · neutral 10</span><div style="background:#fbf9f8;color:#161513;border-radius:0;padding:32px 24px;"><p style="margin:0;font-size:16px;font-weight:400;">The most common product-page section fill, one barely-perceptible step from the base.</p></div></div>
+  <div><span class="label">section-band-tint · neutral 20</span><div style="background:#f5f4f2;color:#161513;border-radius:0;padding:32px 24px;"><p style="margin:0;font-size:16px;font-weight:400;">The next step, used for supporting sections and the contact hero.</p></div></div>
+  <div><span class="label">section-band-warm · neutral 30</span><div style="background:#f1efed;color:#161513;border-radius:0;padding:32px 24px;"><p style="margin:0;font-size:16px;font-weight:400;">The most-used rung, carrying the corporate index page almost end to end.</p></div></div>
+  <div><span class="label">section-band-teal</span><div style="background:#d6e5e5;color:#161513;border-radius:0;padding:32px 24px;"><p style="margin:0;font-size:16px;font-weight:400;">A short chromatic strip, around 120 to 160px tall, used to interrupt a long neutral run.</p></div></div>
+  <div><span class="label">section-band-forest</span><div style="background:#33553c;color:#ffffff;border-radius:0;padding:32px 24px;"><p style="margin:0;font-size:16px;font-weight:400;">The one deep colour band, carrying inverted text and a multi-column link list.</p></div></div>
+</div></section>
+<section><span class="section-eyebrow">06 — Components</span><h2 class="section-heading">Cards &amp; Media</h2><p style="color:#665f5b;margin:-16px 0 28px;max-width:820px;">Two card radii coexist, and they are template-specific rather than interchangeable — 15px on the corporate index, 8px on the product pages. A card's radius tells you which template you are on.</p><div class="card-grid">
+  <div class="demo-card"><span class="label">content-card · 15px, padding 32px</span><div style="background:#ffffff;border:1px solid #e4e1dd;border-radius:15px;padding:32px;"><div style="font-size:24px;font-weight:600;line-height:32px;color:#161513;margin-bottom:12px;">Oracle Cloud Infrastructure</div><p style="margin:0;font-size:16px;font-weight:350;line-height:24px;color:#161513;">The corporate index workhorse, holding a headline, copy, a primary action and a half-width image.</p></div></div>
+  <div class="demo-card"><span class="label">stat-panel · 15px, canvas-warm, padding 20px</span><div style="background:#f1efed;border-radius:15px;padding:20px;color:#161513;font-size:16px;font-weight:350;line-height:24px;">A tinted block nested inside a content card, holding a short bulleted list of figures.</div></div>
+  <div class="demo-card"><span class="label">product-card · 8px, padding 24px</span><div style="background:#ffffff;border:1px solid #e4e1dd;border-radius:8px;padding:24px;"><div style="font-size:18px;font-weight:800;line-height:21.6px;color:#161513;margin-bottom:10px;">AI designed for data</div><p style="margin:0;font-size:16px;line-height:22.4px;color:#161513;">The product page equivalent, at the smaller radius.</p></div></div>
+  <div class="demo-card"><span class="label">product-card-warm · 8px, canvas-warm</span><div style="background:#f1efed;border-radius:8px;padding:24px;color:#161513;font-size:16px;line-height:22.4px;">Used when the card sits on a white band rather than a tinted one.</div></div>
+  <div class="demo-card"><span class="label">nav-tile · 12px, 1px hairline</span><div style="display:flex;gap:10px;flex-wrap:wrap;"><span style="display:inline-block;background:#ffffff;color:#161513;border:1px solid #e4e1dd;border-radius:12px;padding:16px;font-size:14px;font-weight:600;line-height:20px;min-width:96px;">Cloud</span><span style="display:inline-block;background:#ffffff;color:#161513;border:1px solid #e4e1dd;border-radius:12px;padding:16px;font-size:14px;font-weight:600;line-height:20px;min-width:96px;">Fusion</span></div><p style="font-size:12px;color:#665f5b;margin:12px 0 0;">Eight of these sit below the corporate index masthead in two labelled groups.</p></div>
+  <div class="demo-card"><span class="label">media-frame + play-button-circular</span><div style="position:relative;background:#33553c;border-radius:8px;height:120px;"><span style="position:absolute;right:12px;bottom:12px;width:40px;height:40px;border-radius:50%;background:#161513;color:#ffffff;display:flex;align-items:center;justify-content:center;font-size:14px;">▶</span></div><p style="font-size:12px;color:#665f5b;margin:12px 0 0;">The circular play control is the only circle in the system.</p></div>
+</div></section>
+<section><span class="section-eyebrow">07 — Components</span><h2 class="section-heading">Channel Columns</h2><p style="color:#665f5b;margin:-16px 0 28px;max-width:820px;">A three-up group on the contact page. Each column holds a thin outline icon, an 800-weight heading, a short paragraph and an inline link, separated by full-height 2px vertical rules that disappear when the columns stack.</p>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);background:#ffffff;border:1px solid #e4e1dd;border-radius:0;">
+  <div style="padding:24px;border-right:2px solid #e9e7e4;"><div style="font-size:22px;color:#161513;margin-bottom:12px;">◇</div><div style="font-size:24px;font-weight:800;line-height:28.8px;color:#161513;margin-bottom:10px;">Send a message to Oracle Sales</div><p style="margin:0 0 10px;font-size:16px;line-height:22.4px;color:#161513;">Send us a message here and we'll get back to you.</p><a href="#" style="color:#006b8f;text-decoration:none;font-size:16px;">Send us a message</a></div><div style="padding:24px;border-right:2px solid #e9e7e4;"><div style="font-size:22px;color:#161513;margin-bottom:12px;">◇</div><div style="font-size:24px;font-weight:800;line-height:28.8px;color:#161513;margin-bottom:10px;">Chat with Oracle Sales</div><p style="margin:0 0 10px;font-size:16px;line-height:22.4px;color:#161513;">Open a live chat with a member of the team.</p><a href="#" style="color:#006b8f;text-decoration:none;font-size:16px;">Open a live chat</a></div><div style="padding:24px;"><div style="font-size:22px;color:#161513;margin-bottom:12px;">◇</div><div style="font-size:24px;font-weight:800;line-height:28.8px;color:#161513;margin-bottom:10px;">Call Oracle Sales</div><p style="margin:0 0 10px;font-size:16px;line-height:22.4px;color:#161513;">Reach the sales desk directly by phone.</p><a href="#" style="color:#006b8f;text-decoration:none;font-size:16px;">Find phone numbers for your region</a></div>
+</div></section>
+<section><span class="section-eyebrow">08 — Components</span><h2 class="section-heading">Form Elements</h2><p style="color:#665f5b;margin:-16px 0 28px;max-width:820px;">The masthead search field is the system's one input treatment — 6px, one step off the card radius, with a border a clear step darker than the hairline so it reads as interactive rather than as a container.</p><div class="form-grid">
+  <div class="demo-card"><span class="label">text-input · 6px, field-border</span><input class="ex-input-demo" placeholder="Search" style="border-radius:6px;border:1px solid #d4cfca;background:#ffffff;color:#161513;"></div>
+  <div class="demo-card"><span class="label">text-input · focused</span><input class="ex-input-demo" placeholder="Search" style="border-radius:6px;border:1px solid #d4cfca;background:#ffffff;color:#161513;box-shadow:0 0 0 2px #227e9e;"><p style="font-size:12px;color:#665f5b;margin:12px 0 0;">The focus colour is declared once and used identically in both polarities.</p></div>
+  <div class="demo-card"><span class="label">text-input · error</span><input class="ex-input-demo" placeholder="Search" style="border-radius:6px;border:1px solid #d63b25;background:#ffffff;color:#161513;"><p style="font-size:12px;color:#d63b25;margin:12px 0 0;">Enter a valid value.</p></div>
+</div></section>
+<section><span class="section-eyebrow">09 — Components</span><h2 class="section-heading">Footer</h2><p style="color:#665f5b;margin:-16px 0 28px;max-width:820px;">A single horizontal row of fine-print links above a row of social icons. No rule, no fill change and no column structure — the footer is simply the last band of canvas.</p>
+<div style="background:#ffffff;border:1px solid #e4e1dd;border-radius:0;padding:24px;">
+  <div style="display:flex;gap:18px;flex-wrap:wrap;font-size:12px;line-height:20px;color:#161513;"><span>© 2026 Oracle</span><span style="opacity:.4;">|</span><span>Privacy</span><span>Do Not Sell My Info</span><span style="margin-left:18px;">Ad Choices</span><span>Careers</span><span>Subscribe to emails</span><span>Integrity Helpline</span><span>Resources</span><span>Contact Us</span></div>
+  <div style="margin-top:18px;font-size:18px;color:#161513;letter-spacing:0;">◉ ◉ ◉ ◉</div>
+</div></section>
+<section><span class="section-eyebrow">10 — Foundations</span><h2 class="section-heading">Spacing Scale</h2><p style="color:#665f5b;margin:-16px 0 28px;max-width:820px;">An 8px base with finer steps at the small end and a hard jump at the large end. The section step is the universal rhythm constant — every full-width band on every page is padded 48px 0.</p><div class="spacing-row"><div><div class="spacing-box" style="width:10px;"></div><div class="spacing-label">xs<br>10px</div></div>
+<div><div class="spacing-box" style="width:12px;"></div><div class="spacing-label">sm<br>12px</div></div>
+<div><div class="spacing-box" style="width:16px;"></div><div class="spacing-label">md<br>16px</div></div>
+<div><div class="spacing-box" style="width:18px;"></div><div class="spacing-label">lg<br>18px</div></div>
+<div><div class="spacing-box" style="width:20px;"></div><div class="spacing-label">xl<br>20px</div></div>
+<div><div class="spacing-box" style="width:24px;"></div><div class="spacing-label">xxl<br>24px</div></div>
+<div><div class="spacing-box" style="width:32px;"></div><div class="spacing-label">xxxl<br>32px</div></div>
+<div><div class="spacing-box" style="width:48px;"></div><div class="spacing-label">section<br>48px</div></div>
+<div><div class="spacing-box" style="width:72px;"></div><div class="spacing-label">gutter<br>72px</div></div></div></section>
+<section><span class="section-eyebrow">11 — Foundations</span><h2 class="section-heading">Border Radius</h2><p style="color:#665f5b;margin:-16px 0 28px;max-width:820px;">Unusually fine-grained at the small end, with 4, 6 and 8 all in active use and each assigned to a different control family. The 15px step is a deliberate oddity where 16px would be conventional.</p><div class="radius-row"><div><div class="radius-box" style="border-radius:0px;">0px</div><div class="radius-label">none<br>Bands &amp; nav</div></div>
+<div><div class="radius-box" style="border-radius:4px;">4px</div><div class="radius-label">xs<br>Buttons</div></div>
+<div><div class="radius-box" style="border-radius:6px;">6px</div><div class="radius-label">sm<br>Fields</div></div>
+<div><div class="radius-box" style="border-radius:8px;">8px</div><div class="radius-label">md<br>Product cards</div></div>
+<div><div class="radius-box" style="border-radius:12px;">12px</div><div class="radius-label">lg<br>Nav tiles</div></div>
+<div><div class="radius-box" style="border-radius:15px;">15px</div><div class="radius-label">xl<br>Index cards</div></div>
+<div><div class="radius-box" style="border-radius:50%;">9999px</div><div class="radius-label">full<br>Play control</div></div></div></section>
+<section><span class="section-eyebrow">12 — Foundations</span><h2 class="section-heading">Elevation &amp; Depth</h2><p style="color:#665f5b;margin:-16px 0 28px;max-width:820px;">The system carries no shadows at all. Depth is produced entirely by position on the neutral ladder, and where two surfaces share a rung a 1px hairline does the separating instead.</p><div class="elevation-grid">
+  <div class="elev-card" style="background:#ffffff;border:none;border-radius:0;color:#161513;">Level 0 — flat fill on the ladder. Every band, section, nav and footer.</div>
+  <div class="elev-card" style="background:#f1efed;border:none;border-radius:0;color:#161513;">Level 1 — one rung up or down. Cards on a tinted band, the deep sub-navigation strip.</div>
+  <div class="elev-card" style="background:#ffffff;border:1px solid #e4e1dd;border-radius:0;color:#161513;">Level 2 — a 1px hairline where two surfaces share a rung. Navigation tiles and disabled controls.</div>
+</div></section>
+<section><span class="section-eyebrow">13 — Responsive</span><h2 class="section-heading">Responsive Behavior</h2>
+  <table class="responsive-table"><thead><tr><th>Name</th><th>Width</th><th>Key changes</th></tr></thead><tbody>
+  <tr><td>Small mobile</td><td>&le; 450px</td><td>Single column throughout; masthead collapses to hamburger, wordmark and icons</td></tr>
+  <tr><td>Mobile</td><td>451–600px</td><td>The system's heaviest breakpoint — sub-navigation scrolls, card grids go 1-up</td></tr>
+  <tr><td>Tablet</td><td>601–770px</td><td>Grids go 2-up, search collapses to an icon, channel columns stack and lose their rules</td></tr>
+  <tr><td>Laptop</td><td>771–974px</td><td>2-up and 3-up grids, side gutters tighten from 72px</td></tr>
+  <tr><td>Desktop</td><td>975–1344px</td><td>Full multi-column grids, sub-navigation shows all items inline</td></tr>
+  <tr><td>Wide</td><td>1345–1744px</td><td>Content reaches the 1600px context cap; bands stay full-bleed</td></tr>
+  <tr><td>Ultra-wide</td><td>&ge; 1744px</td><td>Outer container caps; surplus width is absorbed by the band fills</td></tr></tbody></table>
+  <div class="device-ladder">
+    <div class="device-box" style="width:56px;height:110px;">450</div><div class="device-box" style="width:74px;height:110px;">600</div>
+    <div class="device-box" style="width:96px;height:110px;">770</div><div class="device-box" style="width:122px;height:110px;">974</div>
+    <div class="device-box" style="width:168px;height:110px;">1344</div><div class="device-box" style="width:200px;height:110px;">1600</div>
+    <div class="device-box" style="width:218px;height:110px;">1744</div>
+  </div>
+  <p style="color:#665f5b;margin-top:24px;font-size:14px;"><strong style="color:#161513;">Touch targets:</strong> button-primary stands 37px tall at its 10px vertical padding and relies on surrounding margin; text-input and product-subnav clear the 44×44 WCAG AAA minimum at roughly 46px and 64px. Raising the button's vertical padding to 14px brings it to 45px without changing any other value. <strong style="color:#161513;">Collapsing:</strong> the masthead search field collapses to an icon below tablet while the rest holds position; the sub-navigation keeps its full-bleed band at every width and scrolls horizontally rather than wrapping, so the active gold bar stays visible; card grids step 4-up to 3-up to 2-up to 1-up; the channel columns drop their vertical rules when they stack; section padding holds at 48px far longer than most systems would keep it.</p>
+</section>
+<footer class="footer">Maintained by <a href="https://github.com/VoltAgent/voltagent" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img src="https://github.com/VoltAgent.png?size=32" alt="VoltAgent" width="14" height="14" style="border-radius:4px;vertical-align:-2px;margin-right:3px;">VoltAgent</a> team</footer></body></html>
